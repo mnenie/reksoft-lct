@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import FeedContainer from '@/components/feed/FeedContainer.vue';
 </script>
 

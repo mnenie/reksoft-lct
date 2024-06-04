@@ -10,12 +10,7 @@ module.exports = {
     '@vue/eslint-config-prettier/skip-formatting'
   ],
   rules: {
-    'vue/multi-word-component-names': [
-      'error',
-      {
-        ignores: ['Button', 'Sidebar', 'Input', 'Label']
-      }
-    ]
+    'vue/multi-word-component-names': "off"
   },
   parserOptions: {
     ecmaVersion: 'latest'
