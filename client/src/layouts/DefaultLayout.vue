@@ -6,7 +6,7 @@ import MainContainer from '@/components/marketing/MainContainer.vue';
 <template>
   <div class="flex h-dvh w-full">
     <Sidebar />
-    <div class="flex justify-between w-full">
+    <div class="flex h-dvh justify-between w-full">
       <slot />
       <MainContainer />
     </div>
