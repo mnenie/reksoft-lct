@@ -1,7 +1,5 @@
 <script setup>
-import FeedContainer from '@/components/Feed/FeedContainer.vue';
-
-
+import FeedContainer from '@/components/feed/FeedContainer.vue';
 </script>
 
 <template>
