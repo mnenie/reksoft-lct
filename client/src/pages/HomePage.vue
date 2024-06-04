@@ -1,3 +1,11 @@
+<script setup>
+import FeedContainer from '@/components/Feed/FeedContainer.vue';
+
+
+</script>
+
 <template>
-  <div>news</div>
+  <div>
+    <FeedContainer />
+  </div>
 </template>
