@@ -12,7 +12,9 @@ defineProps<Props>();
 </script>
 
 <template>
-  <nav class="grid gap-1 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+  <nav
+    class="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2"
+  >
     <p className="text-xs text-zinc-500 mb-3 pl-2">MENU</p>
     <template v-for="(link, index) of links">
       <Tooltip v-if="isCollapsed" :key="`1-${index}`" :delay-duration="0">
@@ -39,9 +41,9 @@ defineProps<Props>();
         >
           <div class="flex items-center">
             <component :is="link.icon" class="mr-2 size-4" />
-            {{ link.title }}
+            <span class="md:text-sm lg:text-[14px]">{{ link.title }}</span>
           </div>
-          <span v-if="link.label">
+          <span v-if="link.label" class="md:text-sm lg:text-[13px]">
             {{ link.label }}
           </span>
         </Button>

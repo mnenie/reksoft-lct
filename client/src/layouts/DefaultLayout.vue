@@ -41,7 +41,7 @@ function onExpand() {
       <ResizablePanel id="resize-panel-2" :default-size="0" :min-size="30">
         <div class="h-dvh">
           <Header />
-          <div class="flex h-full w-full justify-between mt-8">
+          <div class="flex h-full w-full justify-between">
             <slot />
             <MainContainer />
           </div>
