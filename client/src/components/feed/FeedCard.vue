@@ -7,7 +7,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="min-h-80 w-5/6 border">
+  <div class="min-h-80 w-full border">
     <h3>{{ props.item.title }}</h3>
     <p>{{ props.item.text }}</p>
   </div>

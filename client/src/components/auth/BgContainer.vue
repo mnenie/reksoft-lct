@@ -7,7 +7,7 @@
         <span class="font-serif text-zinc-300 text-[160px] leading-none">“</span>
       </div>
       <blockquote class="z-10 max-w-lg text-3xl">
-        I think you'll love @Qupity :-) Open-source, high-quality, comfortable.
+        I think you'll love @Reksoft :-) Open-source, high-quality, comfortable.
       </blockquote>
       <a
         href="https://twitter.com/zippoxer/status/1360021315852328961"

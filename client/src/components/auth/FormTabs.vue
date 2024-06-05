@@ -1,5 +1,21 @@
+<script setup lang="ts">
+import { cn } from '@/lib/utils';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, ROLE_ROUTE } from '@/utils/consts';
+import { reactive } from 'vue';
+
+const tabs = reactive([
+  { id: '0', route: ROLE_ROUTE },
+  { id: '1', route: REGISTRATION_ROUTE },
+  { id: '2', route: LOGIN_ROUTE }
+]);
+</script>
+
 <template>
-  <div class="flex items-center justify-center gap-4 pt-20">
-    <div v-for="_ in 3" :key="_" class="h-2 w-full bg-zinc-200 rounded-sm" />
+  <div class="absolute -bottom-20 w-full flex items-center justify-center gap-4">
+    <div
+      v-for="tab in tabs"
+      :key="tab.id"
+      :class="cn('h-2 w-full rounded-sm', [tab.route === $route.path ? 'bg-amber-400' : 'bg-zinc-200'])"
+    />
   </div>
 </template>
