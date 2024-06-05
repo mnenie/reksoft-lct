@@ -34,7 +34,7 @@ useInfiniteScroll(el, onLoadMore, { distance: 10 });
 </script>
 
 <template>
-  <div ref="el" class="scroll flex flex-col h-full items-center space-y-3 overflow-y-auto px-16 md:px-48">
+  <div ref="el" class="scroll flex flex-col h-full items-center space-y-3 overflow-y-auto">
     <FeedCard v-for="post in posts" :key="post.title" :item="post" />
   </div>
 </template>

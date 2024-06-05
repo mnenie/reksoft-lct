@@ -1,5 +1,5 @@
 import type { Link } from '@/types/ui.interface';
-import { Mails, Settings, User } from 'lucide-vue-next';
+import { Home, Settings, SquareUser } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
 //routes
@@ -16,21 +16,21 @@ export const NOTFOUND_ROUTE = '/:pathMatch(.*)*';
 export const links = ref<Link[]>([
   {
     id: '0',
-    title: 'News',
-    label: '128',
-    icon: h(Mails),
-    path: HOME_ROUTE
-  },
-  {
-    id: '1',
-    title: 'Profile',
+    title: 'Айрат Багаутдинов',
     label: '',
-    icon: h(User),
+    icon: h(SquareUser),
     path: PROFILE_ROUTE
   },
   {
+    id: '1',
+    title: 'Лента',
+    label: '128',
+    icon: h(Home),
+    path: HOME_ROUTE
+  },
+  {
     id: '2',
-    title: 'Settings',
+    title: 'Настройки',
     label: '',
     icon: h(Settings),
     path: SETTINGS_ROUTE

@@ -1,33 +1,27 @@
 <script setup lang="ts">
-import AccountProvider from '../menu/AccountProvider.vue';
-import Nav from '../menu/Nav.vue';
-import type { Link } from '@/types/ui.interface';
-import { Triangle } from 'lucide-vue-next';
-import Separator from '../ui/separator/Separator.vue';
-
-interface Props {
-  isCollapsed: boolean;
-  links: Link[];
-}
-
-defineProps<Props>();
+import { links } from '@/utils/consts';
+import { Plus } from 'lucide-vue-next';
 </script>
+
 <template>
-  <div
-    :data-collapsed="isCollapsed"
-    class="group flex h-full flex-col justify-between gap-4 bg-zinc-50"
-  >
-    <div>
-      <div v-if="!isCollapsed" class="flex items-center gap-1 pl-4 px-2 h-[46px]">
-        <Triangle class="h-5 w-5" />
-        <h1 class="text-lg font-medium">Reksoft</h1>
-      </div>
-      <div v-else class="flex items-center px-[22px] h-[46px]">
-        <h1 class="text-lg font-medium">R</h1>
-      </div>
-      <Separator class="mb-6" />
-      <Nav :links="links" :is-collapsed="isCollapsed" />
+  <div class="flex h-full min-w-[180px] flex-col gap-4 pb-4 pl-1">
+    <div class="flex items-center rounded-3xl bg-white px-3 py-1.5 text-sm font-medium w-full">
+      <Plus :size="18" class="text-amber-400 mr-2" />
+      Добавить новость
     </div>
-    <AccountProvider :is-collapsed="isCollapsed" class="px-2" />
+    <RouterLink
+      v-for="link in links"
+      :key="link.id"
+      :to="link.path"
+      class="flex items-center justify-between"
+    >
+      <div class="flex items-center">
+        <component :is="link.icon" class="mr-2 size-4 text-zinc-600" />
+        <span class="font-medium md:text-sm lg:text-[14px]">{{ link.title }}</span>
+      </div>
+      <span v-if="link.label" class="md:text-sm lg:text-[13px]">
+        {{ link.label }}
+      </span>
+    </RouterLink>
   </div>
 </template>
