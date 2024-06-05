@@ -17,7 +17,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="min-h-80 w-full border rounded-lg p-3">
+  <div class="h-fit min-h-80 w-full border rounded-lg p-3">
     <div class="flex flex-row items-center mb-3">
       <Avatar class="mr-2 size-10">
         <AvatarFallback>1a</AvatarFallback>
