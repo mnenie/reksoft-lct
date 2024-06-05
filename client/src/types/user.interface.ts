@@ -7,3 +7,8 @@ export interface RoleCard {
   role: Role;
   active: boolean;
 }
+
+export interface User {
+  id: number,
+  username: string
+}
