@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import { HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, ROLE_ROUTE } from '@/utils/consts';
+import { HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, ROLE_ROUTE } from '@/utils/consts';
 
 type RouterRecord = Omit<RouteRecordRaw, 'name' | 'children'> & {
   name: string;
@@ -14,6 +14,14 @@ const routes = [
     name: 'home',
     path: HOME_ROUTE,
     component: () => import('@/views/Home.vue'),
+    meta: {
+      layout: DefaultLayout
+    }
+  },
+  {
+    name: 'profile',
+    path: PROFILE_ROUTE,
+    component: () => import('@/views/Profile.vue'),
     meta: {
       layout: DefaultLayout
     }

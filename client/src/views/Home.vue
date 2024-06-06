@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import FeedContainer from '@/components/feed/FeedContainer.vue';
+import MainContainer from '@/components/marketing/MainContainer.vue';
 </script>
 
 <template>
-  <div class="w-full h-full">
+  <div class="flex h-full w-full justify-between gap-6">
     <FeedContainer />
-    home
+    <MainContainer />
   </div>
 </template>

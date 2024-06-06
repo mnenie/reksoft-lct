@@ -2,7 +2,6 @@
 import type { IPost } from '@/types/post.interface';
 import { ref } from 'vue';
 import FeedCard from '@/components/feed/FeedCard.vue';
-// import PreviewItem from './PreviewItem.vue';
 import { useInfiniteScroll } from '@vueuse/core';
 
 const el = ref<HTMLElement | null>(null);
