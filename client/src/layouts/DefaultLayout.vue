@@ -7,7 +7,7 @@ import MainContainer from '@/components/marketing/MainContainer.vue';
 <template>
   <div class="h-dvh overflow-hidden bg-[#f3f3f1]">
     <Header />
-    <div class="container mt-[70px] flex h-full w-full justify-between gap-8 px-32">
+    <div class="container mt-[70px] flex h-full w-full justify-between gap-6 px-32">
       <Sidebar />
       <slot />
       <MainContainer />

@@ -39,7 +39,7 @@ const authStore = useAuthStore();
       <div class="grid gap-4">
         <FormField v-slot="{ componentField }" :validate-on-blur="!isFieldDirty" name="email">
           <FormItem v-auto-animate class="grid justify-items-start gap-2">
-            <Label for="email"> Email </Label>
+            <Label for="email"> Почта </Label>
             <FormControl>
               <Input
                 v-model="email"
@@ -54,7 +54,7 @@ const authStore = useAuthStore();
         </FormField>
         <FormField v-slot="{ componentField }" :validate-on-blur="!isFieldDirty" name="password">
           <FormItem v-auto-animate class="grid justify-items-start gap-2">
-            <Label for="password"> Password </Label>
+            <Label for="password"> Пароль </Label>
             <FormControl>
               <Input
                 v-model="password"
@@ -69,14 +69,14 @@ const authStore = useAuthStore();
         </FormField>
       </div>
       <div class="grid gap-2">
-        <Button> Sign Up with Email </Button>
+        <Button> Зарегистрироваться </Button>
         <p class="text-center text-sm text-[#72717a] dark:text-zinc-300">
-          Have an account?
+          Уже есть аккаунт?
           <span
             class="cursor-pointer underline underline-offset-4 hover:text-zinc-900 dark:hover:text-zinc-300/80"
             @click="$router.push(LOGIN_ROUTE)"
           >
-            Sign In Now
+            Войти
           </span>
         </p>
       </div>

@@ -11,11 +11,11 @@ const options = ref<RoleCard[]>([
   {
     id: 0,
     active: true,
-    title: 'Im a recruiter',
-    description: 'Setting up my account for my company',
+    title: 'Я рекрутер',
+    description: 'Настройка моей учетной записи для моей компании',
     role: 'recruiter'
   },
-  { id: 1, active: false, title: 'Im a applicant', description: 'Looking for a job', role: 'applicant' }
+  { id: 1, active: false, title: 'Я соискатель', description: 'В поисках работы', role: 'applicant' }
 ]);
 
 const authStore = useAuthStore();
@@ -61,14 +61,14 @@ const toggleCard = (id: number) => {
         </div>
       </div>
       <div class="grid gap-2">
-        <Button type="submit"> Continue </Button>
+        <Button type="submit"> Продолжить </Button>
         <p class="text-center text-sm text-[#72717a] dark:text-zinc-300">
-          Have an account?
+          Уже есть аккаунт?
           <span
             class="cursor-pointer underline underline-offset-4 hover:text-zinc-900 dark:hover:text-zinc-300/80"
             @click="$router.push(LOGIN_ROUTE)"
           >
-            Sign In Now
+            Войдите
           </span>
         </p>
       </div>

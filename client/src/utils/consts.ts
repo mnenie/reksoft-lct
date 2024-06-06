@@ -16,17 +16,17 @@ export const NOTFOUND_ROUTE = '/:pathMatch(.*)*';
 export const links = ref<Link[]>([
   {
     id: '0',
-    title: 'Айрат Багаутдинов',
-    label: '',
-    icon: h(SquareUser),
-    path: PROFILE_ROUTE
-  },
-  {
-    id: '1',
     title: 'Лента',
     label: '128',
     icon: h(Home),
     path: HOME_ROUTE
+  },
+  {
+    id: '1',
+    title: 'Профиль',
+    label: '',
+    icon: h(SquareUser),
+    path: PROFILE_ROUTE
   },
   {
     id: '2',

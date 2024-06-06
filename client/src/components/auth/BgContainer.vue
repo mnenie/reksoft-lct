@@ -6,8 +6,8 @@
       <div class="absolute -left-11 -top-12 select-none">
         <span class="font-serif text-zinc-300 text-[160px] leading-none">“</span>
       </div>
-      <blockquote class="z-10 max-w-lg text-3xl">
-        I think you'll love @Reksoft :-) Open-source, high-quality, comfortable.
+      <blockquote class="z-10 md:max-w-2xl xl:max-w-xl text-3xl">
+        Я думаю, вам понравится @Reksoft :) качественный, удобный. Все, с кем я общался в Reksoft, потрясающие люди!
       </blockquote>
       <a
         href="https://twitter.com/zippoxer/status/1360021315852328961"

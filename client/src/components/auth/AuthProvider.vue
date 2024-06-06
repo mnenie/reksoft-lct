@@ -8,12 +8,12 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 const description = computed(() => {
   if(route.path === LOGIN_ROUTE){
-    return 'Enter your info below to sign in your account'
+    return 'Введите свои данные ниже, чтобы войти в свою учетную запись'
   } else if(route.path === REGISTRATION_ROUTE){
-    return 'Enter your info below to create your account'
+    return 'Введите свои данные ниже, чтобы создать учетную запись'
   }
   else {
-    return 'Tell us about yourself! Сhoose who you are in Reksoft'
+    return 'Расскажите нам о себе! Выберите, кем вы являетесь в Reksoft'
   }
 })
 </script>
@@ -27,7 +27,7 @@ const description = computed(() => {
       </div>
       <div class="relative flex w-[460px] flex-col space-y-2 h-[360px]">
         <h2 className="md:text-4xl font-bold">
-          {{ $route.path === LOGIN_ROUTE ? 'Welcome Back' : 'Get started' }}
+          {{ $route.path === LOGIN_ROUTE ? 'Добро пожаловать' : 'Регистрация' }}
         </h2>
         <p class="pb-4 text-sm text-[#72717a] dark:text-zinc-200">
          {{ description }}

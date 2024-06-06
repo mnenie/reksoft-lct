@@ -8,8 +8,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-
-
 const props = defineProps<{ 
   item: IPost;
 }>();
