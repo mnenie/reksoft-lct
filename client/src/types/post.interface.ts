@@ -7,5 +7,16 @@ export interface IPost {
     text: string,
     img: string[],
     attachment: string[],
+    publishDate: Date,
+    likeCount: number,
+    commentCount: number,
+    comments: IComment[],
+    shareCount: number,
+}
+
+export interface IComment {
+    id: number,
+    owner: User,
+    text: string,
     publishDate: Date
 }

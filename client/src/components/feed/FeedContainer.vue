@@ -2,7 +2,7 @@
 import type { IPost } from '@/types/post.interface';
 import { ref } from 'vue';
 import FeedCard from '@/components/feed/FeedCard.vue';
-import PreviewItem from './PreviewItem.vue';
+// import PreviewItem from './PreviewItem.vue';
 import { useInfiniteScroll } from '@vueuse/core';
 
 const el = ref<HTMLElement | null>(null);
@@ -24,7 +24,11 @@ async function onLoadMore() {
       text: `${dummyData.quote}\n(c) ${dummyData.author}`,
       img: [],
       attachment: [`file${count}.pdf`],
-      publishDate: new Date()
+      publishDate: new Date(),
+      likeCount: 0,
+      commentCount: 0,
+      comments: [],
+      shareCount: 0,
     });
   }
   posts.value.push(...newPosts);

@@ -78,12 +78,19 @@ export const theme = {
         from: { height: 'var(--radix-collapsible-content-height)' },
         to: { height: 0 },
       },
+      "flame-ignite": {
+        "75%, 100%": {
+          transform: "scale(1.5)",
+          opacity: 0,
+        }
+      }
     },
     animation: {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out",
       "collapsible-down": "collapsible-down 0.2s ease-in-out",
       "collapsible-up": "collapsible-up 0.2s ease-in-out",
+      "flame-ignite": "flame-ignite 0.2s ease-in-out"
     },
   },
 }
