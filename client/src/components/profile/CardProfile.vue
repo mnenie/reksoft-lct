@@ -1,32 +1,42 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/stores/auth';
 import { useFileDialog } from '@vueuse/core';
-import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { ref, watch } from 'vue';
 
 const { files, open, reset, onChange } = useFileDialog({
   accept: 'image/*',
   multiple: false
 });
 
-const img = ref('/account.jpg');
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
+
+const photo = ref('./account.jpg')
+
+onChange(async () => {
+  user.value.photoUrl = URL.createObjectURL(files.value![0]);
+  await authStore.updateUser({ photoUrl: user.value.photoUrl! });
+});
 </script>
 
 <template>
-  <div class="w-full rounded-lg bg-white px-6 py-5 mb-6">
+  <div class="mb-6 w-full rounded-lg bg-white px-6 py-5">
     <h2 class="mb-1 text-lg font-bold">Ваше фото профиля</h2>
     <p class="mb-6 text-sm text-zinc-400">Вы можете поменять фото профиля тут</p>
     <div class="flex w-full items-center gap-4">
-      <img :src="img" class="h-28 w-28 rounded-full" />
+      <img :src="photo" class="h-28 w-28 rounded-full" />
       <div class="flex flex-col gap-1">
         <p class="mb-2 text-sm font-bold">Загрузите новое фото</p>
         <div class="mb-1 flex items-center gap-2">
           <Button variant="secondary" class="self-start" @click="open"> Выберите файл ... </Button>
-          <template v-if="files">
+          <template v-if="user.photoUrl">
             <p class="text-sm">
-              Файл загружен: <span>{{ `${files.length} ${'файл'}` }}</span>
+              Файл загружен: <span>{{ `${1} ${'файл'}` }}</span>
             </p>
-            <li v-for="file of files" :key="file.name" class="text-sm">
-              {{ file.name }}
+            <li v-for="file in 1" :key="file" class="text-sm">
+              {{ user.photoUrl.split("").slice(28).join("") }}
             </li>
           </template>
           <span v-else class="text-sm text-zinc-500">Не выбран ни один файл.</span>

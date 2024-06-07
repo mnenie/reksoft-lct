@@ -25,7 +25,7 @@ async function addComment(){
     if (input.value){
       comments.value.push({
         id: comments.value.length + 1, 
-        owner: { id: 7, username: 'svo' }, 
+        owner: { _id: '7', email: 'svo', tags: ['123'] }, 
         text: input.value,
         publishDate: new Date()
       })

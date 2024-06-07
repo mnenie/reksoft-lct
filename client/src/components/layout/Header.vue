@@ -3,8 +3,13 @@ import { Search } from 'lucide-vue-next';
 import { Input } from '@/components/ui/input';
 import { ref } from 'vue';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import AvatarImage from '../ui/avatar/AvatarImage.vue';
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
 
 const search = ref('');
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
 </script>
 
 <template>
@@ -22,7 +27,10 @@ const search = ref('');
         </div>
         <div class="flex items-center gap-1">
           <Avatar class="h-8 w-8">
-            <AvatarFallback>1a</AvatarFallback>
+            <AvatarImage :src="user && user.photoUrl!" />
+            <AvatarFallback>{{
+              user && user.email && user.email.split('').splice(0, 2).join('')
+            }}</AvatarFallback>
           </Avatar>
         </div>
       </div>

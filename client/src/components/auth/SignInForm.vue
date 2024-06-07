@@ -31,10 +31,14 @@ const { value: email } = useField<string>('email');
 const { value: password } = useField<string>('password');
 
 const authStore = useAuthStore();
+
+const onLogin = handleSubmit(async (values) => {
+  authStore.login(values.email, values.password);
+});
 </script>
 
 <template>
-  <form>
+  <form @submit.prevent="onLogin">
     <div class="grid gap-6">
       <div class="grid gap-4">
         <FormField v-slot="{ componentField }" :validate-on-blur="!isFieldDirty" name="email">

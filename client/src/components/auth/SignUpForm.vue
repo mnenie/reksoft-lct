@@ -31,10 +31,14 @@ const { value: email } = useField<string>('email');
 const { value: password } = useField<string>('password');
 
 const authStore = useAuthStore();
+
+const onRegistration = handleSubmit(async (values) => {
+  authStore.registration({...values, tags: ['hello']})
+})
 </script>
 
 <template>
-  <form>
+  <form @submit.prevent="onRegistration">
     <div class="grid gap-6">
       <div class="grid gap-4">
         <FormField v-slot="{ componentField }" :validate-on-blur="!isFieldDirty" name="email">
@@ -69,7 +73,7 @@ const authStore = useAuthStore();
         </FormField>
       </div>
       <div class="grid gap-2">
-        <Button> Зарегистрироваться </Button>
+        <Button type="submit"> Зарегистрироваться </Button>
         <p class="text-center text-sm text-[#72717a] dark:text-zinc-300">
           Уже есть аккаунт?
           <span

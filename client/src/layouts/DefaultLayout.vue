@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import Header from '@/components/layout/Header.vue';
 import Sidebar from '@/components/layout/Sidebar.vue';
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
+
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
+onMounted(async () => {
+  await authStore.getCurrentUser();
+});
 </script>
 
 <template>
