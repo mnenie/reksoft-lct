@@ -1,9 +1,10 @@
 import type { Link } from '@/types/ui.interface';
-import { Home, Settings, SquareUser } from 'lucide-vue-next';
+import { GithubIcon, Globe, Home, Settings, SquareUser } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
 //routes
 export const HOME_ROUTE = '/';
+export const CHAT_ROUTE = '/chat'
 export const LOGIN_ROUTE = '/user/login';
 export const REGISTRATION_ROUTE = '/user/registration';
 export const ROLE_ROUTE = '/user/role';
@@ -36,3 +37,18 @@ export const links = ref<Link[]>([
     path: SETTINGS_ROUTE
   }
 ]);
+
+export const externalLinks = ref<Link[]>([
+  {
+    id: "0",
+    title: 'GitHub',
+    icon: h(GithubIcon),
+    path: 'https://github.com/mnenie/reksoft-lct',
+  },
+  {
+    id: "1",
+    title: 'Перейти к Reksoft',
+    icon: h(Globe),
+    path: 'https://www.reksoft.ru/',
+  },
+])

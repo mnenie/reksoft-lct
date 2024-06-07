@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import { HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, ROLE_ROUTE } from '@/utils/consts';
+import ChatLayout from '@/layouts/ChatLayout.vue';
+import { CHAT_ROUTE, HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, ROLE_ROUTE } from '@/utils/consts';
 
 type RouterRecord = Omit<RouteRecordRaw, 'name' | 'children'> & {
   name: string;
@@ -24,6 +25,14 @@ const routes = [
     component: () => import('@/views/Profile.vue'),
     meta: {
       layout: DefaultLayout
+    }
+  },
+  {
+    name: 'chat',
+    path: CHAT_ROUTE,
+    component: () => import('@/views/Chat.vue'),
+    meta: {
+      layout: ChatLayout
     }
   },
   {

@@ -87,3 +87,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.textLayer{
+  display: none !important;
+}

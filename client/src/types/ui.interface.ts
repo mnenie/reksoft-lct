@@ -7,3 +7,8 @@ export interface Link {
   icon: Component;
   path: string;
 }
+
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  text: string;
+}
