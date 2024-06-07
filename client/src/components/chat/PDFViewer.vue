@@ -3,12 +3,20 @@ import { HOME_ROUTE } from '@/utils/consts';
 import { ChevronLeft } from 'lucide-vue-next';
 import { VuePDF, usePDF } from '@tato30/vue-pdf';
 import type { TextLayerLoadedEventPayload } from '@tato30/vue-pdf';
+import { useWindowSize } from '@vueuse/core'
+import { computed } from 'vue';
 
 const { pdf, pages } = usePDF('1.pdf');
 
 const onDataLoaded = (value: TextLayerLoadedEventPayload) => {
   console.log(value.textContent?.items.concat().map((item: any) => item.str));
 };
+
+const { width } = useWindowSize();
+
+const pdfWidth = computed(() => {
+  return width.value * 0.5
+})
 </script>
 
 <template>
@@ -22,7 +30,7 @@ const onDataLoaded = (value: TextLayerLoadedEventPayload) => {
       </div>
     </div>
     <div v-for="page in pages" :key="page">
-      <VuePDF :pdf="pdf" :page="page" :text-layer="true" @text-loaded="onDataLoaded" />
+      <VuePDF :pdf="pdf" :page="page" :text-layer="true" @text-loaded="onDataLoaded" :width="pdfWidth" />
     </div>
   </div>
 </template>
