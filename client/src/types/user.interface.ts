@@ -11,6 +11,7 @@ export interface User extends DateParams {
   email: string;
   tags: string[];
   photoUrl?: string;
+  resume?: string;
 }
 
 export interface UserAuth extends User{
@@ -24,3 +25,8 @@ export interface RoleCard {
   role: Role;
   active: boolean;
 }
+
+export interface UpdateUserData {
+  photoUrl?: string;
+  resume?: string;
+};

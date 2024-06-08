@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import UserService from '@/services/authService';
 import { useCookies } from '@vueuse/integrations/useCookies';
-import type { Role, User } from '@/types/user.interface';
+import type { Role, User, UpdateUserData } from '@/types/user.interface';
 import { useRouter } from 'vue-router';
 import { HOME_ROUTE } from '@/utils/consts';
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User>({} as User);
   const token = useCookies();
-  const photo = ref('./account.jpg');
+  const updateFl = ref<boolean>(false);
   const role = ref<Role>('recruiter');
   const router = useRouter();
 
@@ -44,16 +44,16 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = response.data;
   };
 
-  const updateUser = async (data: { photoUrl: string }) => {
+  const updateUser = async (data: UpdateUserData) => {
     const response = await UserService.updateUser(data);
-    user.value = response.data
-    console.log(response.data.photoUrl)
+    user.value = response.data;
+    updateFl.value = true;
   };
 
   return {
     user,
     role,
-    photo,
+    updateFl,
     setRole,
     registration,
     login,

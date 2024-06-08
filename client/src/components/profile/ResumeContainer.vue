@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/stores/auth';
 import { useFileDialog } from '@vueuse/core';
-import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const { files, open, reset, onChange } = useFileDialog({
   accept: '.pdf',
   multiple: false
+});
+
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
+
+onChange(async () => {
+  user.value.resume = URL.createObjectURL(files.value![0]) + '.pdf';
+  await authStore.updateUser({ resume: user.value.resume! });
 });
 </script>
 
@@ -15,9 +24,9 @@ const { files, open, reset, onChange } = useFileDialog({
     <span class="text-sm text-zinc-400"> Ваше резюме должно быть формата .pdf </span>
     <div class="mt-4 flex items-center gap-2">
       <Button variant="secondary" class="self-start" @click="open"> Загрузить</Button>
-      <template v-if="files">
-        <li v-for="file of files" :key="file.name" class="list-none text-sm">
-          {{ file.name }}
+      <template v-if="user.resume && user.resume !== 'no resume'">
+        <li v-for="file of 1" :key="file" class="list-none text-sm">
+          {{ user.resume.slice(-12) }}
         </li>
       </template>
       <span v-else class="text-sm text-zinc-500">Файл не выбран.</span>

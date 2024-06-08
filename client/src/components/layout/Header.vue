@@ -29,7 +29,7 @@ const { user } = storeToRefs(authStore);
           <Avatar class="h-8 w-8">
             <AvatarImage :src="user && user.photoUrl!" />
             <AvatarFallback>{{
-              user && user.email && user.email.split('').splice(0, 2).join('')
+              user && user.email && user.email.slice(0, 2)
             }}</AvatarFallback>
           </Avatar>
         </div>
