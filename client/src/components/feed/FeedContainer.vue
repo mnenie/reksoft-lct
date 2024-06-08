@@ -2,6 +2,7 @@
 import type { IPost } from '@/types/post.interface';
 import { ref } from 'vue';
 import FeedCard from '@/components/feed/FeedCard.vue';
+import FeedFilter from './FeedFilter.vue'
 import { useInfiniteScroll } from '@vueuse/core';
 
 const el = ref<HTMLElement | null>(null);
@@ -38,7 +39,8 @@ useInfiniteScroll(el, onLoadMore, { distance: 10 });
 </script>
 
 <template>
-  <div ref="el" class="scroll flex h-full flex-col items-center space-y-3 overflow-y-auto">
+  <div ref="el" class="scroll flex h-full flex-col items-center space-y-3 overflow-y-auto w-full">
+    <FeedFilter />
     <FeedCard v-for="post in posts" :key="post.title" :item="post" />
   </div>
 </template>

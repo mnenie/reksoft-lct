@@ -48,7 +48,7 @@ async function addComment(){
         ref="textarea" 
         v-model="input" 
         placeholder="Написать комментарий..."
-        class="flex min-h-[45px] w-full rounded-md border border-input bg-transparent resize-none px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground text-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        class="flex min-h-[40px] w-full rounded-md border border-input bg-transparent resize-none px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground text-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
         </textarea>
         <LoaderCircle v-if="sendPending" class="animate-spin" />
         <SendHorizonal v-else-if="input" stroke="#374151" class="mt-1" @click="addComment" />

@@ -15,7 +15,7 @@ onMounted(async () => {
 <template>
   <div class="h-dvh overflow-hidden bg-zinc-100">
     <Header />
-    <div class="container mt-[70px] flex h-full w-full justify-between gap-6 px-32">
+    <div class="container pt-[70px] flex h-full w-full justify-between gap-6 px-32">
       <Sidebar />
       <slot />
     </div>

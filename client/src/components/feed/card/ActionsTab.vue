@@ -31,17 +31,17 @@ function toggleLike() {
 <template>
 
     <div class="flex flex-row space-x-3 mt-auto">
-        <Button class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200" @click="toggleLike">
-          <Flame v-if="!isFire" />
-          <Flame v-else stroke="#ff5300" fill="#ff8000" class="animate-flame-ignite" />
-          <p>{{ likes }}</p>
+        <Button :size="'sm'" class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200" @click="toggleLike">
+          <Flame v-if="!isFire" :size="18" />
+          <Flame v-else :size="18" stroke="#ff5300" fill="#ff8000" class="animate-flame-ignite" />
+          <p class="text-sm">{{ likes }}</p>
         </Button>
-        <Button class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200">
-          <MessageSquare />
+        <Button :size="'sm'" class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200">
+          <MessageSquare :size="18" />
           <p>{{ item.comments.length }}</p>
         </Button>
-        <Button class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200" @click="shares++">
-          <Forward />
+        <Button :size="'sm'" class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200" @click="shares++">
+          <Forward :size="18" />
           <p>{{ shares }}</p>
         </Button>
     </div>

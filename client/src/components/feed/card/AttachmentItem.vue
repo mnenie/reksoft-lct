@@ -20,16 +20,16 @@ const downloadHover = ref<boolean>(false);
     @mouseleave="downloadHover = false"
     @mouseenter="downloadHover = true"
     >
-    <div class="flex items-center justify-around rounded-[50%] bg-gray-100 size-12">
+    <div class="flex items-center justify-around rounded-[50%] bg-gray-100 size-10">
       <FileDown v-if="downloadHover" />
       <File v-else />
     </div>
     <div class="flex flex-col"> 
-      <p class="text-s">{{ props.file }}</p>
+      <p class="text-base">{{ props.file }}</p>
       <p class="text-sm text-gray-700 group-hover:text-gray-400">14кб</p>
     </div>
     <div class="basis-5/6">
-      <ChevronRight class="ml-auto group-hover:translate-x-1 transition duration-100" />
+      <ChevronRight :size="18" class="ml-auto group-hover:translate-x-1 transition duration-100" />
     </div>
   </div>
 
