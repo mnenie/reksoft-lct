@@ -19,6 +19,7 @@
     "@unovis/ts": "^1.4.1",
     "@unovis/vue": "^1.4.1",
     "@vee-validate/zod": "^4.13.0",
+    "@vueuse/components": "^10.10.0",
     "@vueuse/core": "^10.10.0",
     "@vueuse/integrations": "^10.10.0",
     "axios": "^1.7.2",

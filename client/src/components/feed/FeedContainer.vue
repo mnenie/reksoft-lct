@@ -19,10 +19,10 @@ async function onLoadMore() {
     newPosts.push({
       id: count,
       title: `title ${count}`,
-      owner: { id: 7, username: 'svo' },
+      owner: { _id: '7', email: 'svo', tags: []},
       text: `${dummyData.quote}\n(c) ${dummyData.author}`,
-      img: [],
-      attachment: [`file${count}.pdf`],
+      img: ['800x600.png', 'fullhd.png', '150.png', '150.png'],
+      attachment: [`file${count}.pdf`, `file${count}.pdf`],
       publishDate: new Date(),
       likeCount: 0,
       commentCount: 0,
