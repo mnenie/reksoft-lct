@@ -23,7 +23,7 @@ const props = defineProps<{
             <AvatarFallback>1a</AvatarFallback>
         </Avatar>
         <div class="flex flex-col">
-            <p class="font-bold text-l">{{ props.item.owner.username }}</p>
+            <p class="font-bold text-l">{{ props.item.owner.email }}</p>
             <p class=" text-sm text-slate-600">{{ item.publishDate.toLocaleDateString() }} 
                 {{ item.publishDate.toLocaleTimeString() }}</p>
         </div>
