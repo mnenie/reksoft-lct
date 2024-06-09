@@ -2,13 +2,16 @@
 import type { IPost } from '@/types/post.interface';
 import { ref } from 'vue';
 import FeedCard from '@/components/feed/FeedCard.vue';
-import FeedFilter from './FeedFilter.vue'
+import FeedFilter from './FeedFilter.vue';
 import { useInfiniteScroll } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
+import { usePostStore } from '@/stores/posts';
 
 const el = ref<HTMLElement | null>(null);
 const isFetching = ref<boolean>(false);
 
-const posts = ref<IPost[]>([]);
+const postStore = usePostStore();
+const { posts, filteredNotes } = storeToRefs(postStore);
 
 async function onLoadMore() {
   isFetching.value = true;
@@ -20,7 +23,7 @@ async function onLoadMore() {
     newPosts.push({
       id: count,
       title: `title ${count}`,
-      owner: { _id: '7', email: 'svo', tags: []},
+      owner: { _id: '7', email: 'svo', tags: [] },
       text: `${dummyData.quote}\n(c) ${dummyData.author}`,
       img: ['800x600.png', 'fullhd.png', '150.png', '150.png'],
       attachment: [`file${count}.pdf`, `file${count}.pdf`],
@@ -28,7 +31,7 @@ async function onLoadMore() {
       likeCount: 0,
       commentCount: 0,
       comments: [],
-      shareCount: 0,
+      shareCount: 0
     });
   }
   posts.value.push(...newPosts);
@@ -39,9 +42,9 @@ useInfiniteScroll(el, onLoadMore, { distance: 10 });
 </script>
 
 <template>
-  <div ref="el" class="scroll flex h-full flex-col items-center space-y-3 overflow-y-auto w-full">
+  <div ref="el" class="scroll flex h-full w-full flex-col items-center space-y-3 overflow-y-auto">
     <FeedFilter />
-    <FeedCard v-for="post in posts" :key="post.title" :item="post" />
+    <FeedCard v-for="post in filteredNotes" :key="post.title" :item="post" />
   </div>
 </template>
 

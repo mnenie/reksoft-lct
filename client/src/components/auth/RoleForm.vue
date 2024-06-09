@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { cn } from '@/lib/utils';
 import { User } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, TAGS_ROUTE } from '@/utils/consts';
 import type { RoleCard } from '@/types/user.interface';
 import { useAuthStore } from '@/stores/auth';
 
@@ -29,7 +29,7 @@ const toggleCard = (id: number) => {
 </script>
 
 <template>
-  <form @submit.prevent="$router.push(REGISTRATION_ROUTE)">
+  <form @submit.prevent="$router.push(TAGS_ROUTE)">
     <div class="grid gap-6">
       <div class="grid gap-4">
         <div

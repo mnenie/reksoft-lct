@@ -4,13 +4,14 @@ import UserService from '@/services/authService';
 import { useCookies } from '@vueuse/integrations/useCookies';
 import type { Role, User, UpdateUserData } from '@/types/user.interface';
 import { useRouter } from 'vue-router';
-import { HOME_ROUTE } from '@/utils/consts';
+import { HOME_ROUTE, LOGIN_ROUTE } from '@/utils/consts';
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User>({} as User);
   const token = useCookies();
   const updateFl = ref<boolean>(false);
   const role = ref<Role>('recruiter');
+  const tags = ref<string[]>([]);
   const router = useRouter();
 
   const setRole = (newRole: Role) => {
@@ -28,9 +29,9 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
-  const registration = async (data: { email: string; password: string; tags: string[] }) => {
+  const registration = async (data: { email: string; password: string }) => {
     try {
-      const response = await UserService.registration({ ...data, role: role.value });
+      const response = await UserService.registration({ ...data, role: role.value, tags: tags.value });
       user.value = response.data;
       token.set('token', response.data.token, { path: HOME_ROUTE });
       await router.push(HOME_ROUTE);
@@ -50,13 +51,21 @@ export const useAuthStore = defineStore('auth', () => {
     updateFl.value = true;
   };
 
+  const logout = () => {
+    token.remove('token');
+    user.value = {} as User;
+    router.push(LOGIN_ROUTE);
+  };
+
   return {
     user,
     role,
+    tags,
     updateFl,
     setRole,
     registration,
     login,
+    logout,
     getCurrentUser,
     updateUser
   };

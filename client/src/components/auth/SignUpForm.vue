@@ -13,13 +13,13 @@ import { useAuthStore } from '@/stores/auth';
 const formSchema = toTypedSchema(
   z.object({
     email: z
-      .string({ required_error: 'Email is a required field' })
-      .nonempty('Email is a required field')
-      .email('Email must be a valid'),
+      .string({ required_error: `Поле 'почта' является обязательным для заполнения` })
+      .nonempty(`Поле 'почта' является обязательным для заполнения`)
+      .email('Адрес электронной почты должен быть действительным'),
     password: z
-      .string({ required_error: 'Password is a required field' })
-      .nonempty('Password is a required field')
-      .min(8, 'Password must be at least 8 characters')
+      .string({ required_error: `Поле 'пароль' является обязательным для заполнения`})
+      .nonempty(`Поле 'пароль' является обязательным для заполнения`)
+      .min(8, 'Пароль должен содержать не менее 8 символов')
   })
 );
 
@@ -33,8 +33,8 @@ const { value: password } = useField<string>('password');
 const authStore = useAuthStore();
 
 const onRegistration = handleSubmit(async (values) => {
-  authStore.registration({...values, tags: ['hello']})
-})
+  authStore.registration({ ...values });
+});
 </script>
 
 <template>

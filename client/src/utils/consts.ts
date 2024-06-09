@@ -4,10 +4,11 @@ import { h, ref } from 'vue';
 
 //routes
 export const HOME_ROUTE = '/';
-export const CHAT_ROUTE = '/chat'
+export const CHAT_ROUTE = '/chat';
 export const LOGIN_ROUTE = '/user/login';
 export const REGISTRATION_ROUTE = '/user/registration';
 export const ROLE_ROUTE = '/user/role';
+export const TAGS_ROUTE = '/user/tags';
 export const PROFILE_ROUTE = '/profile';
 export const SETTINGS_ROUTE = '/settings';
 export const NEWS_ROUTE_ID = '/news/:id';
@@ -40,15 +41,15 @@ export const links = ref<Link[]>([
 
 export const externalLinks = ref<Link[]>([
   {
-    id: "0",
+    id: '0',
     title: 'GitHub',
     icon: h(GithubIcon),
-    path: 'https://github.com/mnenie/reksoft-lct',
+    path: 'https://github.com/mnenie/reksoft-lct'
   },
   {
-    id: "1",
+    id: '1',
     title: 'Перейти к Reksoft',
     icon: h(Globe),
-    path: 'https://www.reksoft.ru/',
-  },
-])
+    path: 'https://www.reksoft.ru/'
+  }
+]);

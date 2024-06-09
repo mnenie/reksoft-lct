@@ -13,7 +13,7 @@ const data = [
 </script>
 
 <template>
-  <div class="w-full rounded-lg bg-white px-6 py-5 min-w-[660px]">
+  <div class="w-full rounded-lg bg-white px-6 py-5 max-w-[640px]">
     <h2 class="text-lg font-bold">Активность на Reksoft</h2>
     <AreaChart :data="data" index="name" :categories="['total']" class="h-[340px]" />
   </div>
