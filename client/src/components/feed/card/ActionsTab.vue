@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 
 import { Flame } from 'lucide-vue-next';
 import { MessageSquare } from 'lucide-vue-next';
-import { Forward } from 'lucide-vue-next';
 
 
 const props = defineProps<{ 
@@ -15,7 +14,6 @@ const props = defineProps<{
 
 const isFire = ref<boolean>(false);
 const likes = ref<number>(props.item.likeCount);
-const shares = ref<number>(props.item.shareCount);
 
 function toggleLike() {
   isFire.value = !isFire.value
@@ -39,10 +37,6 @@ function toggleLike() {
         <Button :size="'sm'" class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200">
           <MessageSquare :size="18" />
           <p>{{ item.comments.length }}</p>
-        </Button>
-        <Button :size="'sm'" class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200" @click="shares++">
-          <Forward :size="18" />
-          <p>{{ shares }}</p>
         </Button>
     </div>
 

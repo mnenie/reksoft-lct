@@ -9,7 +9,6 @@ import AttachmentContainer from '../feed/card/AttachmentContainer.vue';
 import CardImages from '../feed/card/CardImages.vue';
 
 
-
 const props = defineProps<{ 
   item: IPost;
 }>();
