@@ -25,6 +25,7 @@ async function onLoadMore() {
     newPosts.push({
       _id: count,
       title: `title ${count}`,
+      tags: ["webdev", "help"],
       owner: { _id: '7', email: 'svo', tags: [] },
       text: `${dummyData.quote}\n(c) ${dummyData.author}`,
       img: ['800x600.png', 'fullhd.png', '150.png', '150.png'],

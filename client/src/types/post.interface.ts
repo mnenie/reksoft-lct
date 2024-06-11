@@ -3,7 +3,8 @@ import type { User } from "./user.interface"
 export interface IPost {
     _id: number,
     title: string,
-    owner: User
+    owner: User,
+    tags: string[],
     text: string,
     img: string[],
     attachment: string[],

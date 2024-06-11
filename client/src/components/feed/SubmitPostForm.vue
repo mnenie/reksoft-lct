@@ -24,9 +24,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import {
+  TagsInput,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemDelete,
+  TagsInputItemText
+} from '@/components/ui/tags-input';
 
 import { ImagePlus } from 'lucide-vue-next';
 import { FilePlus } from 'lucide-vue-next';
+import type { IPost } from '@/types/post.interface';
 
 
 const postStore = usePostStore();
@@ -34,6 +42,7 @@ const postStore = usePostStore();
 const { textarea, input } = useTextareaAutosize();
 
 const title = defineModel<string>();
+const tags = ref<string[]>([]);
 const attachedFiles = ref<string[]>([]);
 const attachedImages = ref<string[]>([]);
 
@@ -49,6 +58,7 @@ function submit() {
   const newPost = {
       _id: count,
       title: title.value || "",
+      tags: tags.value,
       owner: { _id: '7', email: 'svo', tags: [] },
       text: input.value,
       img: attachedImages.value,
@@ -56,7 +66,7 @@ function submit() {
       publishDate: new Date(),
       likeCount: 0,
       comments: []
-    }
+    } as IPost;
   postStore.posts.push(newPost);
   postStore.showCreateForm = false;
 }
@@ -66,18 +76,27 @@ function submit() {
 <template>
 
   <div class="flex flex-col space-y-6 w-full border rounded-lg px-6 py-3 bg-white">
-    <div class="space-y-1">
-      <Label for="name" class="text-right font-bold">
-        Заголовок вашей новости
+    <div class="space-y-3">
+      <Label for="name" class="text-right text-xl font-bold">
+        Создать новость
       </Label>
-      <Input v-model="title" class="w-1/2" placeholder="Введите заголовок..." />
+      <Input v-model="title" class="w-1/2" placeholder="Заголовок" />
+    </div>
+    <div>
+      <TagsInput v-model="tags">
+        <TagsInputItem v-for="item in tags" :key="item" :value="item">
+          <TagsInputItemText />
+          <TagsInputItemDelete />
+        </TagsInputItem>
+        <TagsInputInput class="placeholder:text-muted-foreground" placeholder="Добавьте ключевые слова..." />
+      </TagsInput>
     </div>
     <div class="space-y-1">
       <textarea 
-        ref="textarea" 
-        v-model="input" 
-        placeholder="Что у вас нового?"
-        class="flex min-h-[80px] w-full rounded-md border border-input bg-transparent resize-none px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground text-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+      ref="textarea" 
+      v-model="input" 
+      placeholder="Что у вас нового?"
+      class="flex min-h-[80px] w-full rounded-md border border-input bg-transparent resize-none px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground text-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
       </textarea>
     </div>
     <div>
