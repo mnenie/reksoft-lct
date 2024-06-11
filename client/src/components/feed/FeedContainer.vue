@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import type { IPost } from '@/types/post.interface';
 import { ref } from 'vue';
+import { useInfiniteScroll } from '@vueuse/core';
+import { usePostStore } from '@/stores/posts';
+import { storeToRefs } from 'pinia';
+import type { IPost } from '@/types/post.interface';
 import FeedCard from '@/components/feed/FeedCard.vue';
 import FeedFilter from './FeedFilter.vue';
-import { useInfiniteScroll } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
-import { usePostStore } from '@/stores/posts';
+import SubmitPostForm from './SubmitPostForm.vue';
+
 
 const el = ref<HTMLElement | null>(null);
 const isFetching = ref<boolean>(false);
@@ -21,7 +23,7 @@ async function onLoadMore() {
     const dummyData = await fetch('https://dummyjson.com/quotes/random').then((res) => res.json());
     // console.log(dummyData);
     newPosts.push({
-      id: count,
+      _id: count,
       title: `title ${count}`,
       owner: { _id: '7', email: 'svo', tags: [] },
       text: `${dummyData.quote}\n(c) ${dummyData.author}`,
@@ -29,9 +31,7 @@ async function onLoadMore() {
       attachment: [`file${count}.pdf`, `file${count}.pdf`],
       publishDate: new Date(),
       likeCount: 0,
-      commentCount: 0,
-      comments: [],
-      shareCount: 0
+      comments: []
     });
   }
   posts.value.push(...newPosts);
@@ -44,6 +44,7 @@ useInfiniteScroll(el, onLoadMore, { distance: 10 });
 <template>
   <div ref="el" class="scroll flex h-full w-full flex-col items-center space-y-3 overflow-y-auto">
     <FeedFilter />
+    <SubmitPostForm v-if="postStore.showCreateForm" />
     <FeedCard v-for="post in filteredNotes" :key="post.title" :item="post" />
   </div>
 </template>

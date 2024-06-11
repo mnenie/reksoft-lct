@@ -1,7 +1,7 @@
 import type { User } from "./user.interface"
 
 export interface IPost {
-    id: number,
+    _id: number,
     title: string,
     owner: User
     text: string,
@@ -9,9 +9,7 @@ export interface IPost {
     attachment: string[],
     publishDate: Date,
     likeCount: number,
-    commentCount: number,
-    comments: IComment[],
-    shareCount: number,
+    comments: IComment[]
 }
 
 export interface IComment {

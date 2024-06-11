@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { links, externalLinks } from '@/utils/consts';
-import { Plus } from 'lucide-vue-next';
-import { Badge } from '@/components/ui/badge';
+import { usePostStore } from '@/stores/posts';
 import Separator from '../ui/separator/Separator.vue';
+import { Badge } from '@/components/ui/badge';
+import { Plus } from 'lucide-vue-next';
 import { redirect } from '@/helpers/helperRedirect';
+import { links, externalLinks } from '@/utils/consts';
+
+
+const postStore = usePostStore();
 </script>
 
 <template>
   <div class="flex h-full min-w-[180px] flex-col gap-1 pb-4">
     <div
       class="mb-2 flex w-full cursor-pointer items-center justify-center rounded-xl bg-white px-3 py-2 pl-0 text-sm font-medium md:text-[13px]"
+      @click="postStore.showCreateForm = true"
     >
       <Plus :size="18" class="mr-2 text-amber-400" />
       Добавить новость
