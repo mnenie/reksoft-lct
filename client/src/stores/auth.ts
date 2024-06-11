@@ -46,6 +46,7 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   const updateUser = async (data: UpdateUserData) => {
+    // const creds = await UserService.uploadUserData(data)
     const response = await UserService.updateUser(data);
     user.value = response.data;
     updateFl.value = true;

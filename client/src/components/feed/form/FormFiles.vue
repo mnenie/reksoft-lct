@@ -15,8 +15,8 @@ const props = defineProps<{
   :key="file" 
   class="group flex h-12 w-full cursor-pointer flex-row items-center space-x-3 hover:text-gray-700"
   >
-    <div class="flex size-10 items-center justify-around rounded-[50%] bg-gray-100">
-      <File />
+    <div class="flex items-center justify-center rounded-full p-2 bg-gray-100">
+      <File :size="19" class="text-zinc-800" />
     </div>
     <div class="flex flex-col">
       <p class="text-base">{{ file }}</p>

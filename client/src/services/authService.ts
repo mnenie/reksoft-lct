@@ -22,4 +22,8 @@ export default class UserService {
   static async updateUser(data: UpdateUserData): Promise<AxiosResponse<User>> {
     return api.patch<User>('/auth/redact', data);
   }
+
+  static async uploadUserData(url: UpdateUserData): Promise<AxiosResponse<UpdateUserData>> {
+    return api.post<UpdateUserData>('/upload', url);
+  }
 }

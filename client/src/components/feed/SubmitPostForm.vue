@@ -102,11 +102,11 @@ function submit() {
     <div>
       <div>
         <FormImages :images="attachedImages" />
-        <p v-if="attachedImages.length" class="max-w-5 text-sm text-gray-400" @click="attachedImages = []">Очистить</p>
+        <p v-if="attachedImages.length" class="max-w-5 text-sm text-gray-400 cursor-pointer mt-1" @click="attachedImages = []">Очистить</p>
       </div>
       <div>
         <FormFiles :files="attachedFiles" />
-        <p v-if="attachedFiles.length" class="max-w-5 text-sm text-gray-400" @click="attachedFiles = []">Очистить</p>
+        <p v-if="attachedFiles.length" class="max-w-5 text-sm text-gray-400 cursor-pointer mt-1" @click="attachedFiles = []">Очистить</p>
       </div>
     </div>
     <div class="flex items-center">
@@ -114,7 +114,7 @@ function submit() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <ImagePlus class="cursor-pointer hover:text-gray-700" @click="addImage" />
+              <ImagePlus :size="21" class="cursor-pointer text-zinc-800 hover:text-gray-700" @click="addImage" />
             </TooltipTrigger>
             <TooltipContent>
               <p>Загрузить изображение</p>
@@ -124,7 +124,7 @@ function submit() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <FilePlus class="cursor-pointer hover:text-gray-700" @click="addFile" />
+              <FilePlus :size="21" class="cursor-pointer text-zinc-800 hover:text-gray-700" @click="addFile" />
             </TooltipTrigger>
             <TooltipContent>
               <p>Добавить файл</p>

@@ -13,8 +13,7 @@ const authStore = useAuthStore();
 const { user, updateFl } = storeToRefs(authStore);
 
 onChange(async () => {
-  user.value.photoUrl = URL.createObjectURL(files.value![0]);
-  await authStore.updateUser({ photoUrl: user.value.photoUrl! });
+  await authStore.updateUser({ photoUrl: files.value![0].name });
 });
 </script>
 

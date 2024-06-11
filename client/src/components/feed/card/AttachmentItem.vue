@@ -20,9 +20,9 @@ const downloadHover = ref<boolean>(false);
     @mouseenter="downloadHover = true"
     @click="$router.push(CHAT_ROUTE)"
   >
-    <div class="flex size-10 items-center justify-around rounded-[50%] bg-gray-100">
-      <FileDown v-if="downloadHover" />
-      <File v-else />
+    <div class="flex size-10 items-center justify-center rounded-[50%] bg-gray-100">
+      <FileDown v-if="downloadHover" :size="21" class="text-zinc-800" />
+      <File v-else :size="21" class="text-zinc-800" />
     </div>
     <div class="flex flex-col">
       <p class="text-base">{{ props.file }}</p>
