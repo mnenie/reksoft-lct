@@ -56,7 +56,7 @@ const { search } = storeToRefs(postStore);
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem @click="authStore.logout">
-              <span>Log out</span>
+              <span>Выйти</span>
               <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuContent>

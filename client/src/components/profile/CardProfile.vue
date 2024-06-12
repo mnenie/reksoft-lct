@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/stores/auth';
 import { useFileDialog } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
 
 const { files, open, reset, onChange } = useFileDialog({
   accept: 'image/*',
@@ -11,9 +12,14 @@ const { files, open, reset, onChange } = useFileDialog({
 
 const authStore = useAuthStore();
 const { user, updateFl } = storeToRefs(authStore);
+const localPhotoUrl = ref<string | null>(null);
 
 onChange(async () => {
-  await authStore.updateUser({ photoUrl: files.value![0].name });
+  const file = files.value![0];
+  if (file) {
+    localPhotoUrl.value = URL.createObjectURL(file);
+    await authStore.updateUser({ photoUrl: localPhotoUrl.value });
+  }
 });
 </script>
 

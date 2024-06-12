@@ -12,7 +12,7 @@ const { user } = storeToRefs(authStore);
     <div class="mt-4 flex items-center gap-2">
       <div v-for="tag in user.tags" :key="tag">
         <span
-          class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-700"
+          class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-xs font-semibold text-zinc-700"
         >
           #{{ tag }}
         </span>

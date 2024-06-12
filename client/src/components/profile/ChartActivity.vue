@@ -2,19 +2,19 @@
 import { AreaChart } from '@/components/ui/chart-area';
 
 const data = [
-  { name: 'Jan', total: Math.floor(Math.random() * 2000) + 500 },
-  { name: 'Feb', total: Math.floor(Math.random() * 2000) + 500 },
-  { name: 'Mar', total: Math.floor(Math.random() * 2000) + 500 },
-  { name: 'Apr', total: Math.floor(Math.random() * 2000) + 500 },
-  { name: 'May', total: Math.floor(Math.random() * 2000) + 500 },
-  { name: 'Jun', total: Math.floor(Math.random() * 2000) + 500 },
-  { name: 'Jul', total: Math.floor(Math.random() * 2000) + 500 }
+  { name: 'Jan', news_per_month: 10 },
+  { name: 'Feb', news_per_month: 2 },
+  { name: 'Mar', news_per_month: 1 },
+  { name: 'Apr', news_per_month: 5 },
+  { name: 'May', news_per_month: 6 },
+  { name: 'Jun', news_per_month: 2 },
+  { name: 'Jul', news_per_month: 3 }
 ];
 </script>
 
 <template>
   <div class="w-full rounded-lg bg-white px-6 py-5 max-w-[640px]">
     <h2 class="text-lg font-bold">Активность на Reksoft</h2>
-    <AreaChart :data="data" index="name" :categories="['total']" class="h-[340px]" />
+    <AreaChart :data="data" index="name" :categories="['news_per_month']" class="h-[340px]" />
   </div>
 </template>

@@ -20,10 +20,15 @@ onChange(async () => {
 
 <template>
   <div class="w-full rounded-lg bg-white px-6 py-5">
-    <h2 class="mb-1 text-base font-bold">Загрузите ваше резюме</h2>
+    <h2 class="mb-1 text-base font-bold">
+      {{ user.resume !== 'no resume' ? 'Ваше резюме загружено' : 'Загрузите ваше резюме' }}
+    </h2>
     <span class="text-sm text-zinc-400"> Ваше резюме должно быть формата .pdf </span>
     <div class="mt-4 flex items-center gap-2">
-      <Button variant="secondary" class="self-start" @click="open"> Загрузить</Button>
+      <Button v-if="user.resume == 'no resume'" variant="secondary" class="self-start" @click="open">
+        Загрузить
+      </Button>
+      <div v-else>📄</div>
       <template v-if="user.resume && user.resume !== 'no resume'">
         <li v-for="file of 1" :key="file" class="list-none text-sm">
           {{ user.resume.slice(-12) }}

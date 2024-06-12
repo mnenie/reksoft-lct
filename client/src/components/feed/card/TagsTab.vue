@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 
-const props = defineProps<{ 
-  tags: string[]
+const props = defineProps<{
+  tags: string[];
 }>();
-
 </script>
 
 <template>
-
-    <div class="flex flex-row space-x-1">
-        <Button v-for="tag in props.tags" :key="tag" variant="link" class="text-sm px-2 py-1 rounded-2xl bg-gray-100">{{ tag }}</Button>
-    </div>
-
+  <div class="flex flex-row space-x-1">
+    <span
+      v-for="tag in props.tags"
+      :key="tag"
+      class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-sm font-semibold text-zinc-700"
+    >
+      #{{ tag }}
+    </span>
+  </div>
 </template>
