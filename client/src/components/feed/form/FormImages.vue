@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { IFile } from '@/types/post.interface';
+
 
 const props = defineProps<{
-  images: string[];
+  images: IFile[];
 }>();
 
 </script>
@@ -9,8 +11,8 @@ const props = defineProps<{
 <template>
 
   <div class="photo_grid p-1">
-    <div v-for="image in props.images" :key="image" class="card">
-      <img width="80px" :src="`placeholders/${image}`" />
+    <div v-for="image in props.images" :key="image.url" class="card">
+      <img width="80px" :src="image.url" />
     </div>
   </div>
 

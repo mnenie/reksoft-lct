@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { usePostStore } from '@/stores/posts';
-import { useTextareaAutosize } from '@vueuse/core';
+import { useFileDialog, useTextareaAutosize } from '@vueuse/core';
 
 import FormFiles from '../feed/form/FormFiles.vue';
 import FormImages from '../feed/form/FormImages.vue';
@@ -34,7 +34,7 @@ import {
 
 import { ImagePlus } from 'lucide-vue-next';
 import { FilePlus } from 'lucide-vue-next';
-import type { IPost } from '@/types/post.interface';
+import type { IFile, IPost } from '@/types/post.interface';
 
 
 const postStore = usePostStore();
@@ -43,31 +43,60 @@ const { textarea, input } = useTextareaAutosize();
 
 const title = defineModel<string>();
 const tags = ref<string[]>([]);
-const attachedFiles = ref<string[]>([]);
-const attachedImages = ref<string[]>([]);
+const attachedFiles = ref<IFile[]>([]);
+const attachedImages = ref<IFile[]>([]);
 
-function addFile() {
-  attachedFiles.value.push("new_file.pdf")
-}
-function addImage() {
-  attachedImages.value.push(`150.png`)
-}
 
-function submit() {
+const imageUploader = useFileDialog({
+  accept: 'image/*',
+  multiple: true
+});
+const pdfUploader = useFileDialog({
+  accept: '.pdf',
+  multiple: true
+});
+
+imageUploader.onChange(async () => {
+  for (let i = 0; i < imageUploader.files.value!.length; i++) {
+    const file = imageUploader.files.value![i];
+    if (file) {
+      const localPhotoUrl = URL.createObjectURL(file);
+      const newFile = {_id: "", url: localPhotoUrl, name: file.name, size: file.size} as IFile;
+      const resp = await postStore.postImage(newFile);
+      newFile.url = resp.url;
+      newFile._id = resp._id;
+      attachedImages.value.push(newFile);
+    }
+  }
+});
+
+pdfUploader.onChange(async () => {
+  for (let i = 0; i < pdfUploader.files.value!.length; i++) {
+    const file = pdfUploader.files.value![i];
+    if (file) {
+      const localPdfUrl = URL.createObjectURL(file);
+      const newFile = {url: localPdfUrl, name: file.name, size: file.size} as IFile;
+      const resp = await postStore.postFile(newFile);
+      newFile.url = resp.url;
+      newFile._id = resp._id;
+      attachedFiles.value.push(newFile);
+    }
+  }
+});
+
+async function submit() {
   const count = postStore.posts.length + 1;
   const newPost = {
-      _id: count,
+      _id: count.toString(),
       title: title.value || "",
       tags: tags.value,
-      owner: { _id: '7', email: 'svo', tags: [] },
       text: input.value,
       img: attachedImages.value,
       attachment: attachedFiles.value,
-      publishDate: new Date(),
       likeCount: 0,
       comments: []
     } as IPost;
-  postStore.posts.push(newPost);
+  await postStore.postPost(newPost);
   postStore.showCreateForm = false;
 }
 
@@ -114,7 +143,7 @@ function submit() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <ImagePlus :size="21" class="cursor-pointer text-zinc-800 hover:text-gray-700" @click="addImage" />
+              <ImagePlus :size="21" class="cursor-pointer text-zinc-800 hover:text-gray-700" @click="imageUploader.open" />
             </TooltipTrigger>
             <TooltipContent>
               <p>Загрузить изображение</p>
@@ -124,7 +153,7 @@ function submit() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <FilePlus :size="21" class="cursor-pointer text-zinc-800 hover:text-gray-700" @click="addFile" />
+              <FilePlus :size="21" class="cursor-pointer text-zinc-800 hover:text-gray-700" @click="pdfUploader.open" />
             </TooltipTrigger>
             <TooltipContent>
               <p>Добавить файл</p>

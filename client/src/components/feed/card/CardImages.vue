@@ -1,15 +1,16 @@
 <script setup lang='ts'>
+import type { IFile } from '@/types/post.interface';
 import ImageItem from './ImageItem.vue';
 
 
 const props = defineProps<{ 
-  images: string[];
+  images: IFile[];
 }>();
 
 </script>
 <template>
     <div class="photo_grid">
-        <ImageItem v-for="image in props.images" :key="image" :image="image" />
+        <ImageItem v-for="image in props.images" :key="image.url" :image="image" />
     </div>
 </template>
 <style scoped>

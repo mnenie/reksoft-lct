@@ -1,21 +1,28 @@
 import type { User } from "./user.interface"
 
 export interface IPost {
-    _id: number,
+    _id: string,
     title: string,
-    owner: User,
+    owner?: User,
     tags: string[],
     text: string,
-    img: string[],
-    attachment: string[],
-    publishDate: Date,
+    img: IFile[],
+    attachment: IFile[],
+    createdAt?: string,
     likeCount: number,
     comments: IComment[]
 }
 
 export interface IComment {
-    id: number,
-    owner: User,
+    _id: string,
+    owner?: User,
     text: string,
-    publishDate: Date
+    createdAt?: string
+}
+
+export interface IFile {
+    _id: string,
+    url: string,
+    name: string,
+    size: number
 }

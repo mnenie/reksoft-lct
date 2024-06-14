@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { IFile } from '@/types/post.interface';
 import { ref } from 'vue';
 
 
 const props = defineProps<{ 
-  image: string;
+  image: IFile;
 }>();
 
 const img = new Image();
@@ -22,7 +23,7 @@ const isTall = ref<boolean>(false);
     <div class="card" :class="{'card_wide': isWide, 'card_tall': isTall}">
         <img
         width="500px"
-        :src="`placeholders/${props.image}`" 
+        :src="props.image.url" 
         alt=""
         >
     </div>

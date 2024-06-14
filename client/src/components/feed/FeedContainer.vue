@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onUnmounted, ref } from 'vue';
 import { useInfiniteScroll } from '@vueuse/core';
 import { usePostStore } from '@/stores/posts';
 import { storeToRefs } from 'pinia';
@@ -8,45 +8,60 @@ import FeedCard from '@/components/feed/FeedCard.vue';
 import FeedFilter from './FeedFilter.vue';
 import SubmitPostForm from './SubmitPostForm.vue';
 
+import { Button } from '@/components/ui/button'
+
+import { LoaderCircle } from 'lucide-vue-next';
+
+
+const limit = 15;
+let skip = 0;
 
 const el = ref<HTMLElement | null>(null);
 const isFetching = ref<boolean>(false);
+const noNewPosts = ref<boolean>(false);
 
 const postStore = usePostStore();
 const { posts, filteredNotes } = storeToRefs(postStore);
 
 async function onLoadMore() {
+  if (noNewPosts.value) return;
+
   isFetching.value = true;
-  let newPosts: IPost[] = [];
-  for (let i = 0; i < 15; i++) {
-    const count = posts.value.length + i;
-    const dummyData = await fetch('https://dummyjson.com/quotes/random').then((res) => res.json());
-    // console.log(dummyData);
-    newPosts.push({
-      _id: count,
-      title: `title ${count}`,
-      tags: ["webdev", "help"],
-      owner: { _id: '7', email: 'svo', tags: [] },
-      text: `${dummyData.quote}\n(c) ${dummyData.author}`,
-      img: ['800x600.png', 'fullhd.png', '150.png', '150.png'],
-      attachment: [`file${count}.pdf`, `file${count}.pdf`],
-      publishDate: new Date(),
-      likeCount: 0,
-      comments: []
-    });
+  let newPosts : IPost[] = [];
+  newPosts = await postStore.fetchPosts(limit, skip);
+
+  if (newPosts.length === 0){
+    noNewPosts.value = true;
+    setTimeout(() => {
+      isFetching.value = false;
+      return;
+    }, 2000);
   }
   posts.value.push(...newPosts);
-  isFetching.value = false;
+  skip += limit;
 }
 
 useInfiniteScroll(el, onLoadMore, { distance: 10 });
+
+onUnmounted(() => {
+  postStore.posts = [];
+})
 </script>
 
 <template>
-  <div ref="el" class="scroll flex h-full w-full flex-col items-center space-y-3 overflow-y-auto">
+  <div class="w-full space-y-3">
     <FeedFilter />
     <SubmitPostForm v-if="postStore.showCreateForm" />
-    <FeedCard v-for="post in filteredNotes" :key="post.title" :item="post" />
+    <div ref="el" class="scroll flex h-full w-full flex-col items-center space-y-3 overflow-y-auto">
+      <FeedCard v-for="post in filteredNotes" :key="post.title" :item="post" />
+      <div class="flex flex-row w-full items-center justify-center ">
+        <LoaderCircle v-if="isFetching" class="mt-[100px] mb-[100px] animate-spin" />
+        <div v-else class="flex flex-col items-center">
+          <p class="mt-[100px] mb-1">Кажется, новости закончились =(</p>
+          <Button class="mb-[100px]" @click="noNewPosts = false">Обновить</Button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

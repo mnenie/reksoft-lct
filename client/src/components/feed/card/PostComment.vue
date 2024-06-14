@@ -5,6 +5,9 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 const props = defineProps<{
   item: IComment;
 }>();
+
+let date = new Date(props.item.createdAt || "");
+
 </script>
 
 <template>
@@ -13,10 +16,10 @@ const props = defineProps<{
       <AvatarFallback>1a</AvatarFallback>
     </Avatar>
     <div class="flex flex-col space-y-1">
-      <p class="font-bold">{{ props.item.owner.email }}</p>
+      <p class="font-bold">{{ props.item.owner!.email }}</p>
       <p class="text-sm" >{{ props.item.text }}</p>
       <p class="text-sm md:text-[13px] text-zinc-600">
-        {{ props.item.publishDate.toLocaleDateString() }} {{ props.item.publishDate.toLocaleTimeString() }}
+        {{ date!.toLocaleDateString() }} {{ date!.toLocaleTimeString() }}
       </p>
     </div>
   </div>

@@ -5,9 +5,10 @@ import { File } from 'lucide-vue-next';
 import { FileDown } from 'lucide-vue-next';
 import { ChevronRight } from 'lucide-vue-next';
 import { CHAT_ROUTE } from '@/utils/consts';
+import type { IFile } from '@/types/post.interface';
 
 const props = defineProps<{
-  file: string;
+  file: IFile;
 }>();
 
 const downloadHover = ref<boolean>(false);
@@ -24,11 +25,11 @@ const downloadHover = ref<boolean>(false);
       <FileDown v-if="downloadHover" :size="21" class="text-zinc-800" />
       <File v-else :size="21" class="text-zinc-800" />
     </div>
-    <div class="flex flex-col">
-      <p class="text-base">{{ props.file }}</p>
-      <p class="text-sm text-gray-700 group-hover:text-gray-400">14кб</p>
+    <div class="flex flex-col w-full">
+      <p class="text-base">{{ props.file.name }}</p>
+      <p class="text-sm text-gray-700 group-hover:text-gray-400">{{ Math.round(file.size / 1024) }} Кб</p>
     </div>
-    <div class="basis-5/6">
+    <div>
       <ChevronRight :size="18" class="ml-auto transition duration-100 group-hover:translate-x-1" />
     </div>
   </div>

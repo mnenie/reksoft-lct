@@ -1,5 +1,5 @@
 import useFilteredNews from '@/composables/useFilteredNews';
-import type { IComment, IPost } from '@/types/post.interface';
+import type { IComment, IFile, IPost } from '@/types/post.interface';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import PostService from '@/services/postsService';
@@ -12,10 +12,9 @@ export const usePostStore = defineStore('posts', () => {
 
   const { filteredNotes } = useFilteredNews(posts, search);
 
-  const fetchPosts = async function() : Promise<IPost[]> {
+  const fetchPosts = async function(limit: number, skip: number) : Promise<IPost[]> {
     try {
-      // const fetchedPosts : IPost[] = (await PostService.posts()).data || [];
-      const fetchedPosts = [] as IPost[];
+      const fetchedPosts : IPost[] = (await PostService.posts(limit, skip)).data;
       return fetchedPosts;
     } catch (err) {
       console.log(err);
@@ -24,16 +23,16 @@ export const usePostStore = defineStore('posts', () => {
   }
   const postPost = async function(post: IPost) : Promise<void> {
     try {
-      // const resp = await PostService.post(post);
-      // post = resp.data
+      const resp = await PostService.post(post);
+      post = resp.data;
       posts.value.push(post);
     } catch (err) {
       console.log(err)
     }
   }
-  const patchPost = async function(post: IPost) : Promise<void> {
+  const patchPost = async function(id: string, post: object) : Promise<void> {
     try {
-      await PostService.patch(post);
+      await PostService.patch(id, post);
     } catch (err) {
       console.log(err)
     }
@@ -41,11 +40,12 @@ export const usePostStore = defineStore('posts', () => {
   const deletePost = async function(post: IPost) : Promise<void> {
     try {
       await PostService.delete(post);
+      posts.value = posts.value.filter(p => p._id !== post._id);
     } catch (err) {
       console.log(err)
     }
   }
-  const postComment = async function(post: IPost, comment: IComment) : Promise<IPost> {
+  const postComment = async function(post: IPost, comment: IComment) : Promise<IComment> {
     try {
       const resp = await PostService.postComment(post, comment);
       return resp.data;
@@ -54,20 +54,20 @@ export const usePostStore = defineStore('posts', () => {
       return {} as IPost;
     }
   }
-  const postImage = async function(post: IPost) : Promise<void> {
+  const postImage = async function(post: IFile) : Promise<IFile> {
     try {
-      await PostService.post(post);
-      posts.value.push(post);
+      return (await PostService.postImage(post)).data;
     } catch (err) {
       console.log(err)
+      return post;
     }
   }
-  const postFile = async function(post: IPost) : Promise<void> {
+  const postFile = async function(post: IFile) : Promise<IFile> {
     try {
-      await PostService.post(post);
-      posts.value.push(post);
+      return (await PostService.postFile(post)).data;
     } catch (err) {
       console.log(err)
+      return post;
     }
   }
 

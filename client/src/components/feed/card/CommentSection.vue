@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { IComment, IPost } from '@/types/post.interface';
+import { usePostStore } from '@/stores/posts';
 
 import PostComment from './PostComment.vue';
 import { useTextareaAutosize } from '@vueuse/core'
-
 
 import { SendHorizonal } from 'lucide-vue-next';
 import { LoaderCircle } from 'lucide-vue-next';
@@ -13,26 +13,26 @@ import { LoaderCircle } from 'lucide-vue-next';
 const props = defineProps<{ 
   item: IPost;
 }>();
+const postStore = usePostStore();
 const { textarea, input } = useTextareaAutosize()
+
 
 const comments = ref<IComment[]>(props.item.comments);
 const sendPending = ref<boolean>(false);
 
 async function addComment(){
-  props.item;
   sendPending.value = true;
-  setTimeout(() => {
-    if (input.value){
-      comments.value.push({
-        id: comments.value.length + 1, 
-        owner: { _id: '7', email: 'svo', tags: ['123'] }, 
-        text: input.value,
-        publishDate: new Date()
-      })
-    }
+  if (input.value){
+    let newComment = {
+      _id: (comments.value.length + 1).toString(),
+      text: input.value
+    } as IComment;
+    const resp = await postStore.postComment(props.item, newComment);
+    newComment = resp;
+    comments.value.push(newComment);
     input.value = "";
-    sendPending.value = false;
-  }, 2000);
+  }
+  sendPending.value = false;
 }
 
 </script>
@@ -41,7 +41,7 @@ async function addComment(){
 
   <div>
     <div>
-      <PostComment v-for="comment in comments" :key="comment.id" :item="comment" class="flex flex-row space-x-1 px-3 py-1" />
+      <PostComment v-for="comment in comments" :key="comment._id" :item="comment" class="flex flex-row space-x-1 px-3 py-1" />
     </div>
     <div class="flex flex-row space-x-3 mt-3">
       <textarea 
