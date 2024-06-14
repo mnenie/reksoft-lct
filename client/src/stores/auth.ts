@@ -10,6 +10,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<User>({} as User);
   const token = useCookies();
   const updateFl = ref<boolean>(false);
+  const isPending = ref<boolean>(false);
   const role = ref<Role>('recruiter');
   const tags = ref<string[]>([]);
   const router = useRouter();
@@ -19,6 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   const login = async (email: string, password: string) => {
+    isPending.value = true;
     try {
       const response = await UserService.login(email, password);
       user.value = response.data;
@@ -26,10 +28,13 @@ export const useAuthStore = defineStore('auth', () => {
       await router.push(HOME_ROUTE);
     } catch (err) {
       console.log(err);
+    } finally {
+      isPending.value = false;
     }
   };
 
   const registration = async (data: { email: string; password: string }) => {
+    isPending.value = true;
     try {
       const response = await UserService.registration({ ...data, role: role.value, tags: tags.value });
       user.value = response.data;
@@ -37,6 +42,8 @@ export const useAuthStore = defineStore('auth', () => {
       await router.push(HOME_ROUTE);
     } catch (err) {
       console.log(err);
+    } finally {
+      isPending.value = false;
     }
   };
 
@@ -62,6 +69,7 @@ export const useAuthStore = defineStore('auth', () => {
     role,
     tags,
     updateFl,
+    isPending,
     setRole,
     registration,
     login,

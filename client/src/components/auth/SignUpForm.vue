@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { LOGIN_ROUTE } from '@/utils/consts';
 import { useAuthStore } from '@/stores/auth';
+import { Loader2 } from 'lucide-vue-next';
 
 const formSchema = toTypedSchema(
   z.object({
@@ -17,7 +18,7 @@ const formSchema = toTypedSchema(
       .nonempty(`Поле 'почта' является обязательным для заполнения`)
       .email('Адрес электронной почты должен быть действительным'),
     password: z
-      .string({ required_error: `Поле 'пароль' является обязательным для заполнения`})
+      .string({ required_error: `Поле 'пароль' является обязательным для заполнения` })
       .nonempty(`Поле 'пароль' является обязательным для заполнения`)
       .min(8, 'Пароль должен содержать не менее 8 символов')
   })
@@ -73,7 +74,10 @@ const onRegistration = handleSubmit(async (values) => {
         </FormField>
       </div>
       <div class="grid gap-2">
-        <Button type="submit"> Зарегистрироваться </Button>
+        <Button :disabled="authStore.isPending" type="submit">
+          <Loader2 v-if="authStore.isPending" class="mr-2 h-4 w-4 animate-spin" />
+          Зарегистрироваться
+        </Button>
         <p class="text-center text-sm text-[#72717a] dark:text-zinc-300">
           Уже есть аккаунт?
           <span
