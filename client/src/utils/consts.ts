@@ -1,5 +1,5 @@
 import type { Link } from '@/types/ui.interface';
-import { GithubIcon, Globe, Home, Settings, SquareUser } from 'lucide-vue-next';
+import { GithubIcon, Globe } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
 //routes
@@ -15,29 +15,6 @@ export const NEWS_ROUTE_ID = '/news/:id';
 export const NOTFOUND_ROUTE = '/:pathMatch(.*)*';
 
 //links
-export const links = ref<Link[]>([
-  {
-    id: '0',
-    title: 'Лента',
-    label: '128',
-    icon: h(Home),
-    path: HOME_ROUTE
-  },
-  {
-    id: '1',
-    title: 'Профиль',
-    label: '',
-    icon: h(SquareUser),
-    path: PROFILE_ROUTE
-  },
-  {
-    id: '2',
-    title: 'Настройки',
-    label: '',
-    icon: h(Settings),
-    path: SETTINGS_ROUTE
-  }
-]);
 
 export const externalLinks = ref<Link[]>([
   {

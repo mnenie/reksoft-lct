@@ -2,12 +2,46 @@
 import { usePostStore } from '@/stores/posts';
 import Separator from '../ui/separator/Separator.vue';
 import { Badge } from '@/components/ui/badge';
-import { Plus } from 'lucide-vue-next';
+import { Home, Plus, Settings, SquareUser } from 'lucide-vue-next';
 import { redirect } from '@/helpers/helperRedirect';
-import { links, externalLinks } from '@/utils/consts';
-
+import { HOME_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, externalLinks } from '@/utils/consts';
+import type { Link } from '@/types/ui.interface';
+import { h, ref, watchEffect } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const postStore = usePostStore();
+const { posts } = storeToRefs(postStore);
+
+const links = ref<Link[]>([
+  {
+    id: '0',
+    title: 'Лента',
+    label: posts.value.length.toString(),
+    icon: h(Home),
+    path: HOME_ROUTE
+  },
+  {
+    id: '1',
+    title: 'Профиль',
+    label: '',
+    icon: h(SquareUser),
+    path: PROFILE_ROUTE
+  },
+  {
+    id: '2',
+    title: 'Настройки',
+    label: '',
+    icon: h(Settings),
+    path: SETTINGS_ROUTE
+  }
+]);
+
+watchEffect(() => {
+  if (posts.value){
+    links.value[0].label = posts.value.length.toString();
+  }
+})
+
 </script>
 
 <template>
