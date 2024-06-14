@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ROLE_ROUTE } from '@/utils/consts';
 import { useAuthStore } from '@/stores/auth';
+import { Loader2 } from 'lucide-vue-next';
 
 const formSchema = toTypedSchema(
   z.object({
@@ -73,7 +74,10 @@ const onLogin = handleSubmit(async (values) => {
         </FormField>
       </div>
       <div class="grid gap-2">
-        <Button type="submit"> Войти</Button>
+        <Button :disabled="authStore.isPending" type="submit">
+          <Loader2 v-if="authStore.isPending" class="mr-2 h-4 w-4 animate-spin" />
+          Войти
+        </Button>
         <p class="text-center text-sm text-[#72717a] dark:text-zinc-300">
           Ещё нет аккаунта?
           <span

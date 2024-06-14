@@ -1,5 +1,6 @@
 import type { IPost } from '@/types/post.interface';
-import { computed, type Ref } from 'vue';
+import { computed } from 'vue';
+import type { Ref } from 'vue';
 
 export default function useFilteredNews(news: Ref<IPost[]>, inputFilter: Ref<string>) {
   const filteredNotes = computed(() => {
