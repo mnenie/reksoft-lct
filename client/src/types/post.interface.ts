@@ -1,10 +1,13 @@
 import type { User } from "./user.interface"
 
+export type Role = 'recruiter' | 'applicant';
+
 export interface IPost {
     _id: string,
     title: string,
     owner?: User,
     tags: string[],
+    postType: Role,
     text: string,
     img: IFile[],
     attachment: IFile[],
