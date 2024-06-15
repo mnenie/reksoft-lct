@@ -28,8 +28,7 @@ async function addComment(){
       text: input.value
     } as IComment;
     const resp = await postStore.postComment(props.item, newComment);
-    newComment = resp;
-    comments.value.push(newComment);
+    comments.value = resp.comments;
     input.value = "";
   }
   sendPending.value = false;

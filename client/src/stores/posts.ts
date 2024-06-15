@@ -45,7 +45,7 @@ export const usePostStore = defineStore('posts', () => {
       console.log(err)
     }
   }
-  const postComment = async function(post: IPost, comment: IComment) : Promise<IComment> {
+  const postComment = async function(post: IPost, comment: IComment) : Promise<IPost> {
     try {
       const resp = await PostService.postComment(post, comment);
       return resp.data;
