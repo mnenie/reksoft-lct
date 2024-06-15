@@ -10,7 +10,7 @@ const props = defineProps<{
 
 <template>
 
-  <div class="photo_grid p-1">
+  <div v-if="props.images.length > 0" class="photo_grid p-1">
     <div v-for="image in props.images" :key="image.url" class="card">
       <img width="80px" :src="image.url" />
     </div>
