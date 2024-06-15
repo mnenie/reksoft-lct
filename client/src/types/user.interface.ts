@@ -1,3 +1,5 @@
+import type { IPost } from "./post.interface";
+
 export type Role = 'recruiter' | 'applicant';
 
 interface DateParams {
@@ -12,6 +14,7 @@ export interface User extends DateParams {
   tags: string[];
   photoUrl?: string;
   resume?: string;
+  posts?: IPost[];
 }
 
 export interface UserAuth extends User{
