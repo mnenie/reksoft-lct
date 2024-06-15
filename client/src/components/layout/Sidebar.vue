@@ -41,7 +41,6 @@ watchEffect(() => {
     links.value[0].label = posts.value.length.toString();
   }
 })
-
 </script>
 
 <template>

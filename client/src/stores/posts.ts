@@ -12,7 +12,7 @@ export const usePostStore = defineStore('posts', () => {
 
   const { filteredNotes } = useFilteredNews(posts, search);
 
-  const fetchPosts = async function(limit: number, skip: number) : Promise<IPost[]> {
+  const fetchPosts = async function(limit: number, skip: number): Promise<IPost[]> {
     try {
       const fetchedPosts : IPost[] = (await PostService.posts(limit, skip)).data;
       return fetchedPosts;

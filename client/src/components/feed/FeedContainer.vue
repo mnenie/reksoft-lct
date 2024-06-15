@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUnmounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useInfiniteScroll } from '@vueuse/core';
 import { usePostStore } from '@/stores/posts';
 import { storeToRefs } from 'pinia';
@@ -8,13 +8,12 @@ import FeedCard from '@/components/feed/FeedCard.vue';
 import FeedFilter from './FeedFilter.vue';
 import SubmitPostForm from './SubmitPostForm.vue';
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 
 import { LoaderCircle } from 'lucide-vue-next';
 
-
 const limit = 15;
-let skip = 0;
+const skip = ref(10);
 
 const el = ref<HTMLElement | null>(null);
 const isFetching = ref<boolean>(false);
@@ -27,25 +26,29 @@ async function onLoadMore() {
   if (noNewPosts.value) return;
 
   isFetching.value = true;
-  let newPosts : IPost[] = [];
-  newPosts = await postStore.fetchPosts(limit, skip);
+  let newPosts: IPost[] = [];
+  newPosts = await postStore.fetchPosts(limit, skip.value);
 
-  if (newPosts.length === 0){
+  if (newPosts.length === 0) {
     noNewPosts.value = true;
     setTimeout(() => {
       isFetching.value = false;
       return;
     }, 2000);
+  } else {
+    posts.value.push(...newPosts);
+    skip.value += limit;
   }
-  posts.value.push(...newPosts);
-  skip += limit;
+  isFetching.value = false;
 }
 
 useInfiniteScroll(el, onLoadMore, { distance: 10 });
 
-onUnmounted(() => {
-  postStore.posts = [];
-})
+onMounted(() => {
+  posts.value = [];
+  skip.value = 0;
+  noNewPosts.value = false;
+});
 </script>
 
 <template>
@@ -54,10 +57,10 @@ onUnmounted(() => {
     <SubmitPostForm v-if="postStore.showCreateForm" />
     <div ref="el" class="scroll flex h-full w-full flex-col items-center space-y-3 overflow-y-auto">
       <FeedCard v-for="post in filteredNotes" :key="post.title" :item="post" />
-      <div class="flex flex-row w-full items-center justify-center ">
-        <LoaderCircle v-if="isFetching" class="mt-[100px] mb-[100px] animate-spin" />
+      <div class="flex w-full flex-row items-center justify-center">
+        <LoaderCircle v-if="isFetching" class="mb-[100px] mt-[100px] animate-spin" />
         <div v-else class="flex flex-col items-center">
-          <p class="mt-[100px] mb-1">Кажется, новости закончились =(</p>
+          <p class="mb-1 mt-[100px]">Кажется, новости закончились =(</p>
           <Button class="mb-[100px]" @click="noNewPosts = false">Обновить</Button>
         </div>
       </div>
