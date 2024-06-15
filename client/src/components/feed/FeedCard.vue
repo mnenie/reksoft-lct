@@ -19,7 +19,7 @@ const props = defineProps<{
 <template>
   <div class="flex flex-col space-y-6 w-full border rounded-lg px-6 py-3 bg-white">
     <UserProfile :item="props.item" />
-    <TagsTab :tags="item.tags" />
+    <TagsTab :tags="props.item.tags" :type="props.item.postType" />
     <CardContent :item="props.item" />
     <CardImages v-if="props.item.img" :images="props.item.img" />
     <AttachmentContainer :files="item.attachment" />
