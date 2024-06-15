@@ -7,7 +7,7 @@ export interface IPost {
     title: string,
     owner?: UserData,
     tags: string[],
-    postType: Role,
+    postType: Role | "article",
     text: string,
     img: IFile[],
     attachment: IFile[],

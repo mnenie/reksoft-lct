@@ -9,7 +9,8 @@ const props = defineProps<{
 
 let postType : string;
 if (props.type === "applicant") postType = "Резюме"
-else postType = "Вакансия"
+else if (props.type === "recruiter") postType = "Вакансия"
+else postType = "Статья"
 
 </script>
 

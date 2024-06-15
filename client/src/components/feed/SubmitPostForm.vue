@@ -44,7 +44,7 @@ const { textarea, input } = useTextareaAutosize();
 
 const title = defineModel<string>();
 const tags = ref<string[]>([]);
-const postType = ref<Role>('applicant');
+const postType = ref<Role | "article">('applicant');
 const attachedFiles = ref<IFile[]>([]);
 const attachedImages = ref<IFile[]>([]);
 
@@ -141,6 +141,10 @@ async function submit() {
         <div class="flex items-center space-x-2" @click="postType = 'recruiter'">
           <RadioGroupItem id="r2" value="recruiter" />
           <Label for="r2">Вакансия</Label>
+        </div>
+        <div class="flex items-center space-x-2" @click="postType = 'article'">
+          <RadioGroupItem id="r3" value="article" />
+          <Label for="r3">Статья</Label>
         </div>
       </RadioGroup>
     </div>
