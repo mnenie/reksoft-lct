@@ -4,6 +4,7 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import ChatLayout from '@/layouts/ChatLayout.vue';
 import {
+  AI_NEWS,
   CHAT_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE,
@@ -33,6 +34,15 @@ const routes = [
     name: 'profile',
     path: PROFILE_ROUTE,
     component: () => import('@/views/Profile.vue'),
+    meta: {
+      auth: false,
+      layout: DefaultLayout
+    }
+  },
+  {
+    name: 'ai.news',
+    path: AI_NEWS,
+    component: () => import('@/views/AiNews.vue'),
     meta: {
       auth: false,
       layout: DefaultLayout

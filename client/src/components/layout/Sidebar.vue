@@ -2,9 +2,9 @@
 import { usePostStore } from '@/stores/posts';
 import Separator from '../ui/separator/Separator.vue';
 import { Badge } from '@/components/ui/badge';
-import { Home, Plus, Settings, SquareUser } from 'lucide-vue-next';
+import { Home, Plus, Settings, SquareUser, PackageSearch } from 'lucide-vue-next';
 import { redirect } from '@/helpers/helperRedirect';
-import { HOME_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, externalLinks } from '@/utils/consts';
+import { AI_NEWS, HOME_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, externalLinks } from '@/utils/consts';
 import type { Link } from '@/types/ui.interface';
 import { h, ref, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
@@ -22,13 +22,20 @@ const links = ref<Link[]>([
   },
   {
     id: '1',
+    title: 'Подборка новостей',
+    label: '',
+    icon: h(PackageSearch),
+    path: AI_NEWS
+  },
+  {
+    id: '2',
     title: 'Профиль',
     label: '',
     icon: h(SquareUser),
     path: PROFILE_ROUTE
   },
   {
-    id: '2',
+    id: '3',
     title: 'Настройки',
     label: '',
     icon: h(Settings),
@@ -37,10 +44,10 @@ const links = ref<Link[]>([
 ]);
 
 watchEffect(() => {
-  if (posts.value){
+  if (posts.value) {
     links.value[0].label = posts.value.length.toString();
   }
-})
+});
 </script>
 
 <template>
