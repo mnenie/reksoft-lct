@@ -7,7 +7,16 @@ import { storeToRefs } from 'pinia';
 const postStore = usePostStore();
 const { posts } = storeToRefs(postStore);
 
-const { data } = useActivity(posts);
+// const { data } = useActivity(posts);
+const data = [
+  { name: 'Jan', news_per_month: 10 },
+  { name: 'Feb', news_per_month: 2 },
+  { name: 'Mar', news_per_month: 8 },
+  { name: 'Apr', news_per_month: 4 },
+  { name: 'May', news_per_month: 3 },
+  { name: 'Jun', news_per_month: 2 },
+  { name: 'Jul', news_per_month: 12 }
+];
 </script>
 
 <template>
