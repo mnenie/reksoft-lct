@@ -94,6 +94,7 @@ async function submit() {
       img: attachedImages.value,
       attachment: attachedFiles.value,
       likeCount: 0,
+      userLikes: [],
       comments: []
     } as IPost;
   await postStore.postPost(newPost);

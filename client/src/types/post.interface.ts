@@ -10,6 +10,7 @@ export interface IPost {
     attachment: IFile[],
     createdAt?: string,
     likeCount: number,
+    userLikes: string[],
     comments: IComment[]
 }
 
