@@ -2,7 +2,7 @@
 import { useAuthStore } from '@/stores/auth';
 import { usePostStore } from '@/stores/posts';
 import type { IPost } from '@/types/post.interface';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Ellipsis } from 'lucide-vue-next';
 import {
   DropdownMenu,
@@ -30,16 +30,18 @@ const authStore = useAuthStore();
 const postStore = usePostStore();
 
 let date = new Date(props.item.createdAt || "");
+const owner = props.item.owner!;
 
 </script>
 
 <template>
   <div class="flex flex-row items-center">
     <Avatar class="mr-2 size-10">
-      <AvatarFallback>1a</AvatarFallback>
+      <AvatarImage :src="owner.photoUrl!"></AvatarImage>
+      <AvatarFallback>{{ owner.email.slice(1, 3) }}</AvatarFallback>
     </Avatar>
     <div class="flex flex-col">
-      <p class="text-base font-bold">{{ props.item.owner!.email }}</p>
+      <p class="text-base font-bold">{{ owner.email.slice(0, owner.email.indexOf("@")) }}</p>
       <p class="text-sm md:text-[13px] text-zinc-500">
         {{ date!.toLocaleDateString() }} {{ date!.toLocaleTimeString() }}
       </p>
