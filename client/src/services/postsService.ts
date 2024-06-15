@@ -34,6 +34,9 @@ export default class PostService {
       headers: { Authorization: `Bearer ${token.get("token")}` },
     });
   }
+  static async putLike(post: IPost): Promise<AxiosResponse<IPost>> {
+    return api.put(`posts/${post._id}/like`, post);
+  }
   static async postImage(post: IFile): Promise<AxiosResponse<IFile>> {
     return api.post('upload/image', post, {
       headers: { Authorization: `Bearer ${token.get("token")}` },

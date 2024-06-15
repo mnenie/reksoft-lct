@@ -5,20 +5,38 @@ import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
 import Input from '../ui/input/Input.vue';
 import { AI_NEWS } from '@/utils/consts';
+import { useGptStore } from '@/stores/gpt';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
+const gptStore = useGptStore();
+
 const { user } = storeToRefs(authStore);
+const filter = ref('');
+const router = useRouter();
+
+const onSubmit = async () => {
+  await gptStore.gptPostNews(filter.value);
+  router.push(AI_NEWS);
+};
 </script>
 
 <template>
   <div class="flex w-full items-center justify-between rounded-lg bg-white p-4">
-    <div class="flex items-center gap-1 w-full">
+    <div class="flex w-full items-center gap-1">
       <Avatar class="h-7 w-7">
         <AvatarImage :src="user.userData && user.userData.photoUrl!" />
-        <AvatarFallback>{{ user.userData && user.userData.email && user.userData.email.slice(0, 2) }}</AvatarFallback>
+        <AvatarFallback>{{
+          user.userData && user.userData.email && user.userData.email.slice(0, 2)
+        }}</AvatarFallback>
       </Avatar>
-      <Input class="text-sm text-zinc-500 md:text-[13px] w-[90%] outline-none border-0 shadow-none focus-visible:ring-0" placeholder="Воспользуйтесь умной фильтрацией" />
+      <Input
+        v-model="filter"
+        class="w-[90%] border-0 text-sm text-zinc-500 shadow-none outline-none focus-visible:ring-0 md:text-[13px]"
+        placeholder="Воспользуйтесь умной фильтрацией"
+      />
     </div>
-    <Sparkles :size="18" class="cursor-pointer text-zinc-600" @click="$router.push(AI_NEWS)" />
+    <Sparkles :size="18" class="cursor-pointer text-zinc-600" @click="onSubmit" />
   </div>
 </template>
