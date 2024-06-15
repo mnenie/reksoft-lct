@@ -8,7 +8,6 @@ export const usePostStore = defineStore('posts', () => {
   const posts = ref<IPost[]>([]);
   const search = ref<string>('');
   const showCreateForm = ref<boolean>(false);
-  const isFire = ref(false);
 
   const { filteredNotes } = useFilteredNews(posts, search);
 
@@ -64,7 +63,6 @@ export const usePostStore = defineStore('posts', () => {
   };
   const toggleLike = async function (post: IPost): Promise<IPost> {
     try {
-      isFire.value = !isFire.value;
       const response = await PostService.putLike(post);
       return response.data;
     } catch (err) {
@@ -86,7 +84,6 @@ export const usePostStore = defineStore('posts', () => {
     search,
     showCreateForm,
     filteredNotes,
-    isFire,
     fetchPosts,
     postPost,
     patchPost,

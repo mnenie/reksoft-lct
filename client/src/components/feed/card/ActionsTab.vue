@@ -1,22 +1,47 @@
 <script setup lang="ts">
 import { ref, toRef } from 'vue';
 import type { IPost } from '@/types/post.interface';
+import { usePostStore } from '@/stores/posts';
+import { useAuthStore } from '@/stores/auth';
 
 import { Button } from '@/components/ui/button';
 
 import { Flame } from 'lucide-vue-next';
 import { MessageSquare } from 'lucide-vue-next';
-import { usePostStore } from '@/stores/posts';
-import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
   item: IPost;
 }>();
 
-const postStore = usePostStore();
-const { isFire } = storeToRefs(postStore);
+const item = props.item;
 
+const postStore = usePostStore();
+const authStore = useAuthStore();
+
+const isFire = ref<boolean>(false);
 const likes = toRef(props.item.likeCount);
+
+async function toggleLike() {
+  if (isFire.value) {
+    isFire.value = false;
+    likes.value--;
+    item.likeCount--;
+    item.userLikes = item.userLikes.filter(l => l !== authStore.user.userData._id);
+    console.log(item.userLikes)
+    await postStore.toggleLike(item);
+    return;
+  }
+  isFire.value = true;
+  likes.value++;
+  item.likeCount++;
+  item.userLikes.push(authStore.user.userData._id)
+  await postStore.toggleLike(item);
+}
+
+if (item.userLikes.includes(authStore.user.userData._id)) {
+  isFire.value = true;
+}
+
 </script>
 
 <template>
@@ -24,7 +49,7 @@ const likes = toRef(props.item.likeCount);
     <Button
       :size="'sm'"
       class="space-x-1 rounded-xl bg-gray-100 text-black hover:bg-gray-200"
-      @click="postStore.toggleLike(item)"
+      @click="toggleLike"
     >
       <Flame v-if="!isFire" :size="18" />
       <Flame v-else :size="18" stroke="#ff5300" fill="#ff8000" class="animate-flame-ignite" />
