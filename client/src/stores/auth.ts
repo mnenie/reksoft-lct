@@ -2,7 +2,8 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import UserService from '@/services/authService';
 import { useCookies } from '@vueuse/integrations/useCookies';
-import type { Role, User, UpdateUserData } from '@/types/user.interface';
+import type { User, UpdateUserData } from '@/types/user.interface';
+import type { Role } from "@/types/post.interface";
 import { useRouter } from 'vue-router';
 import { HOME_ROUTE, LOGIN_ROUTE } from '@/utils/consts';
 

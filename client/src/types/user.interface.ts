@@ -1,6 +1,5 @@
-import type { IPost } from './post.interface';
+import type { IPost, Role } from "./post.interface";
 
-export type Role = 'recruiter' | 'applicant';
 
 interface DateParams {
   createdAt?: Date;

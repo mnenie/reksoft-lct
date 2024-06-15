@@ -31,10 +31,11 @@ import {
   TagsInputItemDelete,
   TagsInputItemText
 } from '@/components/ui/tags-input';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
 import { ImagePlus } from 'lucide-vue-next';
 import { FilePlus } from 'lucide-vue-next';
-import type { IFile, IPost } from '@/types/post.interface';
+import type { IFile, IPost, Role } from '@/types/post.interface';
 
 
 const postStore = usePostStore();
@@ -43,6 +44,7 @@ const { textarea, input } = useTextareaAutosize();
 
 const title = defineModel<string>();
 const tags = ref<string[]>([]);
+const postType = ref<Role>('applicant');
 const attachedFiles = ref<IFile[]>([]);
 const attachedImages = ref<IFile[]>([]);
 
@@ -90,10 +92,12 @@ async function submit() {
       _id: count.toString(),
       title: title.value || "",
       tags: tags.value,
+      postType: postType.value,
       text: input.value,
       img: attachedImages.value,
       attachment: attachedFiles.value,
       likeCount: 0,
+      userLikes: [],
       comments: []
     } as IPost;
   await postStore.postPost(newPost);
@@ -127,6 +131,18 @@ async function submit() {
       placeholder="Что у вас нового?"
       class="flex min-h-[80px] w-full rounded-md border border-input bg-transparent resize-none px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground text-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
       </textarea>
+    </div>
+    <div>
+      <RadioGroup :default-value="postType" :orientation="'vertical'">
+        <div class="flex items-center space-x-2">
+          <RadioGroupItem id="r1" value="applicant" @click="postType = 'applicant'"/>
+          <Label for="r1">Резюме</Label>
+        </div>
+        <div class="flex items-center space-x-2" @click="postType = 'recruiter'">
+          <RadioGroupItem id="r2" value="recruiter" />
+          <Label for="r2">Вакансия</Label>
+        </div>
+      </RadioGroup>
     </div>
     <div>
       <div>
