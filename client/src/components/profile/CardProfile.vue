@@ -28,17 +28,17 @@ onChange(async () => {
     <h2 class="mb-1 text-lg font-bold">Ваше фото профиля</h2>
     <p class="mb-6 text-sm text-zinc-400">Вы можете поменять фото профиля тут</p>
     <div class="flex w-full items-center gap-4">
-      <img :src="user.photoUrl" class="h-28 w-28 rounded-full bg-zinc-100" />
+      <img :src="user.userData && user.userData.photoUrl" class="h-28 w-28 rounded-full bg-zinc-100" />
       <div class="flex flex-col gap-1">
         <p class="mb-2 text-sm font-bold">Загрузите новое фото</p>
         <div class="mb-1 flex items-center gap-2">
           <Button variant="secondary" class="self-start" @click="open"> Выберите файл ... </Button>
-          <template v-if="updateFl && user.photoUrl">
+          <template v-if="updateFl && user.userData.photoUrl">
             <p class="text-sm">
               Файл загружен: <span>{{ `${1} ${'файл'}` }}</span>
             </p>
             <li v-for="file in 1" :key="file" class="text-sm">
-              {{ user.photoUrl.slice(-12) }}
+              {{ user.userData.photoUrl!.slice(-12) }}
             </li>
           </template>
           <span v-else class="text-sm text-zinc-500">Не выбран ни один файл.</span>

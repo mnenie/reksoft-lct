@@ -14,8 +14,8 @@ const { user } = storeToRefs(authStore);
   <div class="flex w-full items-center justify-between rounded-lg bg-white p-4">
     <div class="flex items-center gap-1 w-full">
       <Avatar class="h-7 w-7">
-        <AvatarImage :src="user.photoUrl!" />
-        <AvatarFallback>{{ user && user.email && user.email.slice(0, 2) }}</AvatarFallback>
+        <AvatarImage :src="user.userData && user.userData.photoUrl!" />
+        <AvatarFallback>{{ user.userData && user.userData.email && user.userData.email.slice(0, 2) }}</AvatarFallback>
       </Avatar>
       <Input class="text-sm text-zinc-500 md:text-[13px] w-[90%] outline-none border-0 shadow-none focus-visible:ring-0" placeholder="Воспользуйтесь умной фильтрацией" />
     </div>

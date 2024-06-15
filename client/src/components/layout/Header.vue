@@ -41,8 +41,8 @@ const { search } = storeToRefs(postStore);
         <DropdownMenu>
           <DropdownMenuTrigger as-child>
             <Avatar class="h-8 w-8">
-              <AvatarImage :src="user && user.photoUrl!" />
-              <AvatarFallback>{{ user && user.email && user.email.slice(0, 2) }}</AvatarFallback>
+              <AvatarImage :src="user.userData && user.userData.photoUrl!" />
+              <AvatarFallback>{{ user.userData && user.userData.email && user.userData.email.slice(0, 2) }}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -50,7 +50,7 @@ const { search } = storeToRefs(postStore);
               v-if="user"
               class="flex w-full items-center justify-between overflow-hidden text-ellipsis whitespace-nowrap gap-6"
             >
-              {{ user.email }}
+              {{ user.userData.email }}
               <div v-if="online" class="h-2 w-2 rounded-full bg-green-600"></div>
               <div v-else class="h-2 w-2 rounded-full bg-amber-500"></div>
             </DropdownMenuLabel>

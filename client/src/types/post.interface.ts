@@ -1,9 +1,9 @@
-import type { User } from "./user.interface"
+import type { UserData } from "./user.interface"
 
 export interface IPost {
     _id: string,
     title: string,
-    owner?: User,
+    owner?: UserData,
     tags: string[],
     text: string,
     img: IFile[],
@@ -15,7 +15,7 @@ export interface IPost {
 
 export interface IComment {
     _id: string,
-    owner?: User,
+    owner?: UserData,
     text: string,
     createdAt?: string
 }

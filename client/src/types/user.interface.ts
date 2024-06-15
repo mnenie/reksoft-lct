@@ -1,4 +1,4 @@
-import type { IPost } from "./post.interface";
+import type { IPost } from './post.interface';
 
 export type Role = 'recruiter' | 'applicant';
 
@@ -8,16 +8,21 @@ interface DateParams {
   deletedAt?: Date;
 }
 
-export interface User extends DateParams {
+export interface UserData {
   _id: string;
   email: string;
   tags: string[];
   photoUrl?: string;
   resume?: string;
+  role: Role;
+}
+
+export interface User extends DateParams {
+  userData: UserData;
   posts?: IPost[];
 }
 
-export interface UserAuth extends User{
+export interface UserAuth extends User {
   token: string;
 }
 
@@ -32,4 +37,4 @@ export interface RoleCard {
 export interface UpdateUserData {
   photoUrl?: string;
   resume?: string;
-};
+}
