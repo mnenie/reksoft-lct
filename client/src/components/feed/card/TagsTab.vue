@@ -6,7 +6,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-row space-x-1">
+  <div class="flex flex-row space-x-1 space-y-1 text-wrap flex-wrap">
     <span
       v-for="tag in props.tags"
       :key="tag"
