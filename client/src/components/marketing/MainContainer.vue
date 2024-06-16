@@ -8,13 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 
-
 const postStore = usePostStore();
 const { typeSearch } = storeToRefs(postStore);
 
-
-const checkedArticle = ref<boolean>(true);
-const checkedRecruiter = ref<boolean>(true);
 const checkedApplicant = ref<boolean>(true);
 
 function handleCheck(type: string) {
@@ -36,37 +32,21 @@ function handleCheck(type: string) {
       </p>
     </div>
     <div class="flex h-fit w-[300px] min-w-[300px] flex-col gap-2 rounded-md bg-white p-4">
-      <h2 class="text-base font-bold">Узнайте больше о проекте</h2>
-      <Button variant="secondary" class="w-full" @click="redirect('https://github.com/mnenie/reksoft-lct')">
-        <img src="/github.png" class="w-4 h-4 mr-2" />
-        GitHub
-      </Button>
-    </div>
-    <div class="flex h-fit w-[300px] min-w-[300px] flex-col gap-2 rounded-md bg-white p-4">
       <div class="flex items-center justify-between">
-        <Label for="article">Статьи</Label>
-        <Switch 
-          id="article" 
-          :checked="checkedArticle" 
-          @update:checked="handleCheck('article'); checkedArticle = !checkedArticle"
-          />
-      </div>
-      <div class="flex items-center justify-between">
-        <Label for="recruiter">Вакансии</Label>
-        <Switch 
-          id="recruiter" 
-          :checked="checkedRecruiter"
-          @update:checked="handleCheck('recruiter'); checkedRecruiter = !checkedRecruiter"
-          />
-      </div>
-      <div class="flex items-center justify-between">
-        <Label for="applicant">Резюме</Label>
+        <Label for="applicant">📝 Показать только резюме</Label>
         <Switch 
           id="applicant" 
           :checked="checkedApplicant" 
           @update:checked="handleCheck('applicant'); checkedApplicant = !checkedApplicant" 
           />
       </div>
+    </div>
+    <div class="flex h-fit w-[300px] min-w-[300px] flex-col gap-2 rounded-md bg-white p-4">
+      <h2 class="text-base font-bold">Узнайте больше о проекте</h2>
+      <Button variant="secondary" class="w-full" @click="redirect('https://github.com/mnenie/reksoft-lct')">
+        <img src="/github.png" class="w-4 h-4 mr-2" />
+        GitHub
+      </Button>
     </div>
   </div>
 </template>
