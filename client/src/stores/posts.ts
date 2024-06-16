@@ -7,9 +7,10 @@ import PostService from '@/services/postsService';
 export const usePostStore = defineStore('posts', () => {
   const posts = ref<IPost[]>([]);
   const search = ref<string>('');
+  const typeSearch = ref<string[]>(["article", "recruiter", "applicant"]);
   const showCreateForm = ref<boolean>(false);
 
-  const { filteredNotes } = useFilteredNews(posts, search);
+  const { filteredNotes } = useFilteredNews(posts, search, typeSearch);
 
   const fetchPosts = async function (limit: number, skip: number): Promise<IPost[]> {
     try {
@@ -91,6 +92,7 @@ export const usePostStore = defineStore('posts', () => {
   return {
     posts,
     search,
+    typeSearch,
     showCreateForm,
     filteredNotes,
     fetchPosts,
