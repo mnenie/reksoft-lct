@@ -67,15 +67,18 @@ const onSubmit = async () => {
       <ChevronDown v-else class="h-4 w-4 ml-auto cursor-pointer" @click="folded = true" />
     </div>
     <div v-if="!folded" class="flex w-full border rounded-lg border-zinc-200">
-      <div class="h-7 self-start m-3">
+      <div class="h-7 self-start my-3 px-3">
         <Avatar class="h-7 w-7">
           <AvatarFallback>AI</AvatarFallback>
         </Avatar>
       </div>
-      <div class="flex w-full justify-center mt-3">
-        <LoaderCircle v-if="isPending" class="animate-spin" />
-        <div v-if="error">Не удалось получить ответ</div>
-        <div v-if="isLoaded"  class="mb-3 mr-3" v-html="responceMD">
+      <div class="flex w-full justify-center items-center">
+        <div v-if="isPending" class="flex items-center gap-2 pr-6">
+          <span class="text-sm text-zinc-800">Загрузка</span>
+          <LoaderCircle :size="19" class="animate-spin" />
+        </div>
+        <div v-if="error" class="text-sm mt-0 pr-6">:/ Не удалось получить ответ</div>
+        <div v-if="isLoaded" class="mr-3 my-3 text-sm" v-html="responceMD">
         </div>
       </div>
     </div>

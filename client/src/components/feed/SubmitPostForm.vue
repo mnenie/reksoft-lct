@@ -6,15 +6,10 @@ import { useFileDialog, useTextareaAutosize } from '@vueuse/core';
 import FormFiles from '../feed/form/FormFiles.vue';
 import FormImages from '../feed/form/FormImages.vue';
 
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '@/components/ui/tooltip'
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
   Dialog,
   DialogClose,
@@ -22,8 +17,8 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+  DialogTrigger
+} from '@/components/ui/dialog';
 import {
   TagsInput,
   TagsInputInput,
@@ -31,12 +26,11 @@ import {
   TagsInputItemDelete,
   TagsInputItemText
 } from '@/components/ui/tags-input';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 import { ImagePlus } from 'lucide-vue-next';
 import { FilePlus } from 'lucide-vue-next';
 import type { IFile, IPost, Role } from '@/types/post.interface';
-
 
 const postStore = usePostStore();
 
@@ -44,10 +38,9 @@ const { textarea, input } = useTextareaAutosize();
 
 const title = defineModel<string>();
 const tags = ref<string[]>([]);
-const postType = ref<Role | "article">('applicant');
+const postType = ref<Role | 'article'>('applicant');
 const attachedFiles = ref<IFile[]>([]);
 const attachedImages = ref<IFile[]>([]);
-
 
 const imageUploader = useFileDialog({
   accept: 'image/*',
@@ -63,7 +56,7 @@ imageUploader.onChange(async () => {
     const file = imageUploader.files.value![i];
     if (file) {
       const localPhotoUrl = URL.createObjectURL(file);
-      const newFile = {_id: "", url: localPhotoUrl, name: file.name, size: file.size} as IFile;
+      const newFile = { _id: '', url: localPhotoUrl, name: file.name, size: file.size } as IFile;
       const resp = await postStore.postImage(newFile);
       newFile.url = resp.url;
       newFile._id = resp._id;
@@ -77,7 +70,7 @@ pdfUploader.onChange(async () => {
     const file = pdfUploader.files.value![i];
     if (file) {
       const localPdfUrl = URL.createObjectURL(file);
-      const newFile = {url: localPdfUrl, name: file.name, size: file.size} as IFile;
+      const newFile = { url: localPdfUrl, name: file.name, size: file.size } as IFile;
       const resp = await postStore.postFile(newFile);
       newFile.url = resp.url;
       newFile._id = resp._id;
@@ -89,29 +82,26 @@ pdfUploader.onChange(async () => {
 async function submit() {
   const count = postStore.posts.length + 1;
   const newPost = {
-      _id: count.toString(),
-      title: title.value || "",
-      tags: tags.value,
-      postType: postType.value,
-      text: input.value,
-      img: attachedImages.value,
-      attachment: attachedFiles.value,
-      likeCount: 0,
-      userLikes: [],
-      comments: []
-    } as IPost;
+    _id: count.toString(),
+    title: title.value || '',
+    tags: tags.value,
+    postType: postType.value,
+    text: input.value,
+    img: attachedImages.value,
+    attachment: attachedFiles.value,
+    likeCount: 0,
+    userLikes: [],
+    comments: []
+  } as IPost;
   await postStore.postPost(newPost);
   postStore.showCreateForm = false;
 }
 </script>
 
 <template>
-
-  <div class="flex flex-col space-y-6 w-full border rounded-lg px-6 py-3 bg-white">
+  <div class="flex w-full flex-col space-y-6 rounded-lg border bg-white px-6 py-3">
     <div class="space-y-3">
-      <Label for="name" class="text-right text-xl font-bold">
-        Создать новость
-      </Label>
+      <Label for="name" class="text-right text-xl font-bold"> Создать новость </Label>
       <Input v-model="title" class="w-1/2" placeholder="Заголовок" />
     </div>
     <div>
@@ -124,17 +114,18 @@ async function submit() {
       </TagsInput>
     </div>
     <div class="space-y-1">
-      <textarea 
-      ref="textarea" 
-      v-model="input" 
-      placeholder="Что у вас нового?"
-      class="flex min-h-[80px] w-full rounded-md border border-input bg-transparent resize-none px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground text-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+      <textarea
+        ref="textarea"
+        v-model="input"
+        placeholder="Что у вас нового?"
+        class="flex min-h-[80px] w-full resize-none text-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+      >
       </textarea>
     </div>
     <div>
       <RadioGroup :default-value="postType" :orientation="'vertical'">
         <div class="flex items-center space-x-2">
-          <RadioGroupItem id="r1" value="applicant" @click="postType = 'applicant'"/>
+          <RadioGroupItem id="r1" value="applicant" @click="postType = 'applicant'" />
           <Label for="r1">Резюме</Label>
         </div>
         <div class="flex items-center space-x-2" @click="postType = 'recruiter'">
@@ -150,11 +141,23 @@ async function submit() {
     <div>
       <div>
         <FormImages :images="attachedImages" />
-        <p v-if="attachedImages.length" class="max-w-5 text-sm text-gray-400 cursor-pointer mt-1" @click="attachedImages = []">Очистить</p>
+        <p
+          v-if="attachedImages.length"
+          class="mt-1 max-w-5 cursor-pointer text-sm text-gray-400"
+          @click="attachedImages = []"
+        >
+          Очистить
+        </p>
       </div>
       <div>
         <FormFiles :files="attachedFiles" />
-        <p v-if="attachedFiles.length" class="max-w-5 text-sm text-gray-400 cursor-pointer mt-1" @click="attachedFiles = []">Очистить</p>
+        <p
+          v-if="attachedFiles.length"
+          class="mt-1 max-w-5 cursor-pointer text-sm text-gray-400"
+          @click="attachedFiles = []"
+        >
+          Очистить
+        </p>
       </div>
     </div>
     <div class="flex items-center">
@@ -162,7 +165,11 @@ async function submit() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <ImagePlus :size="21" class="cursor-pointer text-zinc-800 hover:text-gray-700" @click="imageUploader.open" />
+              <ImagePlus
+                :size="21"
+                class="cursor-pointer text-zinc-800 hover:text-gray-700"
+                @click="imageUploader.open"
+              />
             </TooltipTrigger>
             <TooltipContent>
               <p>Загрузить изображение</p>
@@ -172,7 +179,11 @@ async function submit() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <FilePlus :size="21" class="cursor-pointer text-zinc-800 hover:text-gray-700" @click="pdfUploader.open" />
+              <FilePlus
+                :size="21"
+                class="cursor-pointer text-zinc-800 hover:text-gray-700"
+                @click="pdfUploader.open"
+              />
             </TooltipTrigger>
             <TooltipContent>
               <p>Добавить файл</p>
@@ -180,7 +191,7 @@ async function submit() {
           </Tooltip>
         </TooltipProvider>
       </div>
-      <div class="flex space-x-3 ml-auto">
+      <div class="ml-auto flex space-x-3">
         <Dialog>
           <DialogTrigger>
             <Button variant="ghost">Отмена</Button>
@@ -188,9 +199,7 @@ async function submit() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Удалить новость?</DialogTitle>
-              <DialogDescription>
-                Вы уверены, что хотите удалить новость?
-              </DialogDescription>
+              <DialogDescription> Вы уверены, что хотите удалить новость? </DialogDescription>
             </DialogHeader>
             <DialogClose as-child>
               <Button variant="ghost">Отмена</Button>
@@ -204,7 +213,5 @@ async function submit() {
         <Button v-else @click="submit">Опубликовать</Button>
       </div>
     </div>
-
   </div>
-
 </template>

@@ -15,7 +15,7 @@ const message = defineModel<string>();
       <form class="relative flex w-full items-center" @submit.prevent="emits('onChat')">
         <Input
           v-model="message"
-          :placeholder="'Спросите что-то у нашего ИИ бота'"
+          :placeholder="'Привет! Чем могу помочь?'"
           class="rounded-none rounded-l-md border-r-0 focus-visible:ring-0"
         />
         <Button type="submit" variant="secondary" class="rounded-none rounded-r-md border border-zinc-200">
@@ -24,7 +24,7 @@ const message = defineModel<string>();
       </form>
     </div>
     <span class="py-1 text-xs text-zinc-400">
-      Reksoft AI может допускать ошибки. Рекомендуем проверять важную информацию.
+      Reksoft AI поможет вам найти и проанализировать любую инофрмацию.
     </span>
   </div>
 </template>
