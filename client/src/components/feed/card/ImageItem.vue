@@ -2,14 +2,15 @@
 import type { IFile } from '@/types/post.interface';
 import { ref } from 'vue';
 
-
 const props = defineProps<{ 
   image: IFile;
 }>();
 
 const img = new Image();
 img.onload = function() {
+    //@ts-ignore
     if (this.width > 400) isWide.value = true;
+    //@ts-ignore
     if (this.heigth > 400) isTall.value = true;
 }
 img.src = `placeholders/${props.image}`;
