@@ -8,8 +8,8 @@ export default class GptService {
   static async gptChat(data: { text: string; pdf: string }): Promise<AxiosResponse<ChatMessage>> {
     return api.post('/gpt/pdfanalizer', data);
   }
-  static async gptPosts(text: string): Promise<AxiosResponse<IPost[]>> {
-    return api.post('/gpt/podborka', text);
+  static async gptPosts(data: {text: string}): Promise<AxiosResponse<string>> {
+    return api.post('/gpt/podborka', data);
   }
 
   static async getFileGptById (id: string): Promise<AxiosResponse<Chat>> {

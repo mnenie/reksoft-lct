@@ -8,10 +8,10 @@ export const useGptStore = defineStore('gpt', () => {
   const pdfContent = ref<string>('');
   const url = ref<string>('');
 
-  const gptPostNews = async (data: string) => {
+  const gptPostNews = async (text: string) : Promise<string> => {
+    const data = {text: text}
     const response = await GptService.gptPosts(data);
-    news.value = response.data;
-    // console.log(response.data);
+    return response.data;
   };
   const gptChat = async (data: string) => {
     const response = await GptService.gptChat({ text: data, pdf: pdfContent.value });
