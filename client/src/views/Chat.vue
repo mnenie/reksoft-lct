@@ -3,16 +3,18 @@ import ChatBox from '@/components/chat/ChatBox.vue';
 import PDFViewer from '@/components/chat/PDFViewer.vue';
 import { useGptStore } from '@/stores/gpt';
 import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
-const chatStore = useGptStore()
+const chatStore = useGptStore();
+const route = useRoute();
 
 onMounted(async () => {
-  await chatStore.getFileGpt('666db3226b03e43e28d17bef')
-})
+  await chatStore.getFileGpt(route.params.id as string);
+});
 </script>
 
 <template>
-  <div class="flex items-start gap-1 w-full h-full">
+  <div class="flex h-full w-full items-start gap-1">
     <PDFViewer />
     <ChatBox />
   </div>

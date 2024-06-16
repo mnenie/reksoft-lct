@@ -4,7 +4,7 @@ import { h, ref } from 'vue';
 
 //routes
 export const HOME_ROUTE = '/';
-export const CHAT_ROUTE = '/chat';
+export const CHAT_ROUTE = '/chat/:id';
 export const AI_NEWS = '/ai/news'
 export const LOGIN_ROUTE = '/user/login';
 export const REGISTRATION_ROUTE = '/user/registration';

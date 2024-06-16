@@ -15,5 +15,5 @@ export interface Chat {
 
 export interface ChatMessage {
   role: 'user' | 'assistant';
-  text: string;
+  text: string | Promise<string>;
 }

@@ -91,3 +91,6 @@
 .textLayer{
   display: none !important;
 }
+.hiddenCanvasElement{
+  display: none!important;
+}

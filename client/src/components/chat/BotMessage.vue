@@ -12,17 +12,19 @@ const message = defineModel<string>();
 <template>
   <div class="sticky bottom-0 z-50 flex w-full flex-col items-center justify-end px-6">
     <div class="flex w-full items-center">
-      <form class="relative w-full" @submit.prevent="emits('onChat')">
+      <form class="relative flex w-full items-center" @submit.prevent="emits('onChat')">
         <Input
           v-model="message"
-          :placeholder="'Спросите что-то у нашего чата'"
+          :placeholder="'Спросите что-то у нашего ИИ бота'"
           class="rounded-none rounded-l-md border-r-0 focus-visible:ring-0"
         />
+        <Button type="submit" variant="secondary" class="rounded-none rounded-r-md border border-zinc-200">
+          <SendHorizontal :size="18" class="text-zinc-800" />
+        </Button>
       </form>
-      <Button type="submit" variant="secondary" class="rounded-none rounded-r-md border border-zinc-200">
-        <SendHorizontal :size="18" class="text-zinc-800" />
-      </Button>
     </div>
-    <span class="py-1 text-xs text-zinc-400"> Напишите нашему ИИ все, что вы хотите знать</span>
+    <span class="py-1 text-xs text-zinc-400">
+      Reksoft AI может допускать ошибки. Рекомендуем проверять важную информацию.
+    </span>
   </div>
 </template>
