@@ -10,7 +10,7 @@ export const usePostStore = defineStore('posts', () => {
   const typeSearch = ref<string[]>(["article", "recruiter", "applicant"]);
   const showCreateForm = ref<boolean>(false);
 
-  const { filteredNotes } = useFilteredNews(posts, search, typeSearch);
+  const { filteredPosts } = useFilteredNews(posts, search, typeSearch);
 
   const fetchPosts = async function (limit: number, skip: number): Promise<IPost[]> {
     try {
@@ -94,7 +94,7 @@ export const usePostStore = defineStore('posts', () => {
     search,
     typeSearch,
     showCreateForm,
-    filteredNotes,
+    filteredPosts,
     fetchPosts,
     postPost,
     patchPost,

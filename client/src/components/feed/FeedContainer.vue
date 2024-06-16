@@ -20,7 +20,7 @@ const isFetching = ref<boolean>(false);
 const noNewPosts = ref<boolean>(false);
 
 const postStore = usePostStore();
-const { posts, filteredNotes } = storeToRefs(postStore);
+const { posts, filteredPosts } = storeToRefs(postStore);
 
 async function onLoadMore() {
   if (noNewPosts.value) return;
@@ -56,7 +56,7 @@ onMounted(() => {
     <FeedFilter />
     <SubmitPostForm v-if="postStore.showCreateForm" />
     <div ref="el" class="scroll flex h-full w-full flex-col items-center space-y-3 overflow-y-auto">
-      <FeedCard v-for="post in filteredNotes" :key="post.title" :item="post" />
+      <FeedCard v-for="post in filteredPosts" :key="post.title" :item="post" />
       <div class="flex w-full flex-row items-center justify-center">
         <LoaderCircle v-if="isFetching" class="mb-[100px] mt-[100px] animate-spin" />
         <div v-else class="flex flex-col items-center">
