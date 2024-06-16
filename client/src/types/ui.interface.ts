@@ -8,6 +8,11 @@ export interface Link {
   path: string;
 }
 
+export interface Activity {
+  name: string;
+  news_per_month: number;
+}
+
 export interface Chat {
   id: string;
   url: string;

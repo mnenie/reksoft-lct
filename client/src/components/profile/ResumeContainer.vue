@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useFileDialog } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 
-const { files, open, reset, onChange } = useFileDialog({
+const { files, open, onChange } = useFileDialog({
   accept: '.pdf',
   multiple: false
 });
@@ -20,16 +20,16 @@ onChange(async () => {
 
 <template>
   <div class="w-full rounded-lg bg-white px-6 py-5">
-    <h2 class="mb-1 text-base font-bold">
+    <h2 v-if="user.userData" class="mb-1 text-base font-bold">
       {{ user.userData.resume !== 'no resume' ? 'Ваше резюме загружено' : 'Загрузите ваше резюме' }}
     </h2>
     <span class="text-sm text-zinc-400"> Ваше резюме должно быть формата .pdf </span>
     <div class="mt-4 flex items-center gap-2">
-      <Button v-if="user.userData.resume == 'no resume'" variant="secondary" class="self-start" @click="open">
+      <Button v-if="user.userData && user.userData.resume == 'no resume'" variant="secondary" class="self-start" @click="open">
         Загрузить
       </Button>
       <div v-else>📄</div>
-      <template v-if="user.userData.resume && user.userData.resume !== 'no resume'">
+      <template v-if="user.userData && user.userData.resume && user.userData.resume !== 'no resume'">
         <li v-for="file of 1" :key="file" class="list-none text-sm">
           {{ user.userData.resume.slice(-12) }}
         </li>
