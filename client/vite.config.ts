@@ -22,5 +22,8 @@ export default defineConfig({
     esbuildOptions: {
       target: 'esnext'
     }
-  }
+  },
+  build: {
+    target: "ES2022" 
+  },
 });
