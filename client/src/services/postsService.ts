@@ -25,20 +25,23 @@ export default class PostService {
     });
   }
   static async postComment(post: IPost, comment: IComment): Promise<AxiosResponse> {
-    return api.post(`posts/${post._id}/comments`, comment, {
+    return api.post(`/posts/${post._id}/comments`, comment, {
       headers: { Authorization: `Bearer ${token.get("token")}` },
     });
   }
   static async postFile(post: IFile): Promise<AxiosResponse<IFile>> {
-    return api.post('upload/pdf', post, {
+    return api.post('/upload/pdf', post, {
       headers: { Authorization: `Bearer ${token.get("token")}` },
     });
   }
   static async putLike(post: IPost): Promise<AxiosResponse<IPost>> {
-    return api.put(`posts/${post._id}/like`, post);
+    return api.put(`/posts/${post._id}/like`, post);
+  }
+  static async putUnlike(post: IPost): Promise<AxiosResponse<IPost>> {
+    return api.put(`/posts/${post._id}/unlike`, post)
   }
   static async postImage(post: IFile): Promise<AxiosResponse<IFile>> {
-    return api.post('upload/image', post, {
+    return api.post('/upload/image', post, {
       headers: { Authorization: `Bearer ${token.get("token")}` },
     });
   }

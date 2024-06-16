@@ -8,6 +8,11 @@ export interface Link {
   path: string;
 }
 
+export interface Chat {
+  id: string;
+  url: string;
+}
+
 export interface ChatMessage {
   role: 'user' | 'assistant';
   text: string;

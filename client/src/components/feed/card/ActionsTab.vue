@@ -27,15 +27,15 @@ async function toggleLike() {
     likes.value--;
     item.likeCount--;
     item.userLikes = item.userLikes.filter(l => l !== authStore.user.userData._id);
-    console.log(item.userLikes)
-    await postStore.toggleLike(item);
+    console.log(item)
+    await postStore.setUnlike(item);
     return;
   }
   isFire.value = true;
   likes.value++;
   item.likeCount++;
   item.userLikes.push(authStore.user.userData._id)
-  await postStore.toggleLike(item);
+  await postStore.setLike(item);
 }
 
 if (item.userLikes.includes(authStore.user.userData._id)) {

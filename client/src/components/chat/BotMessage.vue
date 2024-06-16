@@ -12,7 +12,7 @@ const message = defineModel<string>();
 <template>
   <div class="sticky bottom-0 z-50 flex w-full flex-col items-center justify-end px-6">
     <div class="flex w-full items-center">
-      <form @submit.prevent="emits('onChat')" class="relative w-full">
+      <form class="relative w-full" @submit.prevent="emits('onChat')">
         <Input
           v-model="message"
           :placeholder="'Спросите что-то у нашего чата'"

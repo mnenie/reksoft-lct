@@ -103,7 +103,6 @@ async function submit() {
   await postStore.postPost(newPost);
   postStore.showCreateForm = false;
 }
-
 </script>
 
 <template>

@@ -4,21 +4,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
 import Input from '../ui/input/Input.vue';
-import { AI_NEWS } from '@/utils/consts';
 import { useGptStore } from '@/stores/gpt';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
 const gptStore = useGptStore();
 
 const { user } = storeToRefs(authStore);
 const filter = ref('');
-const router = useRouter();
 
 const onSubmit = async () => {
   await gptStore.gptPostNews(filter.value);
-  router.push(AI_NEWS);
 };
 </script>
 

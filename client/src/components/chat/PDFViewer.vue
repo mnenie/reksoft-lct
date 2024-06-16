@@ -3,20 +3,30 @@ import { HOME_ROUTE } from '@/utils/consts';
 import { ChevronLeft } from 'lucide-vue-next';
 import { VuePDF, usePDF } from '@tato30/vue-pdf';
 import type { TextLayerLoadedEventPayload } from '@tato30/vue-pdf';
-import { useWindowSize } from '@vueuse/core'
+import { useWindowSize } from '@vueuse/core';
 import { computed } from 'vue';
+import { useGptStore } from '@/stores/gpt';
+import { storeToRefs } from 'pinia';
 
-const { pdf, pages } = usePDF('1.pdf');
+const gptStore = useGptStore();
+const { pdfContent, url } = storeToRefs(gptStore);
+
+const { pdf, pages } = usePDF(url);
 
 const onDataLoaded = (value: TextLayerLoadedEventPayload) => {
-  console.log(value.textContent?.items.concat().map((item: any) => item.str));
+  const content = value.textContent?.items;
+  const concatContent = `${content
+    ?.concat()
+    .map((item: any) => item.str)
+    .join('\n')}`;
+  pdfContent.value = concatContent;
 };
 
 const { width } = useWindowSize();
 
 const pdfWidth = computed(() => {
-  return width.value * 0.5
-})
+  return width.value * 0.5;
+});
 </script>
 
 <template>
@@ -30,7 +40,7 @@ const pdfWidth = computed(() => {
       </div>
     </div>
     <div v-for="page in pages" :key="page">
-      <VuePDF :pdf="pdf" :page="page" :text-layer="true" @text-loaded="onDataLoaded" :width="pdfWidth" />
+      <VuePDF :pdf="pdf" :page="page" :text-layer="true" :width="pdfWidth" @text-loaded="onDataLoaded"/>
     </div>
   </div>
 </template>

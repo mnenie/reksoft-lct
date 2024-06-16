@@ -61,9 +61,18 @@ export const usePostStore = defineStore('posts', () => {
       return post;
     }
   };
-  const toggleLike = async function (post: IPost): Promise<IPost> {
+  const setLike = async function (post: IPost): Promise<IPost> {
     try {
       const response = await PostService.putLike(post);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return {} as IPost;
+    }
+  };
+  const setUnlike = async function (post: IPost): Promise<IPost> {
+    try {
+      const response = await PostService.putUnlike(post);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -90,7 +99,8 @@ export const usePostStore = defineStore('posts', () => {
     deletePost,
     postComment,
     postFile,
-    toggleLike,
+    setLike,
+    setUnlike,
     postImage
   };
 });
